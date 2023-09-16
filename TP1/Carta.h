@@ -18,4 +18,9 @@ char Retorna_Naipe_Carta(Carta* carta);
 //  Alterar a posição
 void Altera_Posicao_Carta(Carta* carta);
 
+// Operações entre cartas do TAD Carta
+int Verifica_Sequencia_Naipe(Carta* carta1, Carta* carta2);
+int Verifica_Sequencia_Alternada(Carta* carta1, Carta* carta2);// carta1= carta debaixo e carta2=carta de cima
+
+
 
