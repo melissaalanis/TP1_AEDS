@@ -10,4 +10,12 @@ typedef struct {
 
 void Inicializa_Carta(Carta* carta, int iValor, char naipe);
 
+// Retorna o valor, a posição e  o naipe da carta
+int Retorna_Valor_Carta(Carta* carta);
+int Retorna_Posicao_Carta(Carta* carta); 
+char Retorna_Naipe_Carta(Carta* carta);
+
+//  Alterar a posição
+void Altera_Posicao_Carta(Carta* carta);
+
 
