@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "Carta.h"
 
 /*
@@ -7,22 +8,39 @@
     ESPADA E PAUS - NAIPES PRETOS
 */
 
-void Preenher_Baralho_Iterativo(Carta Baralho[52]){ // Inicializa o baralho que será usado no modo iterativo
+void Preenher_Baralho_Iterativo(Carta Baralho[53]){ // Inicializa o baralho que será usado no modo iterativo
     int valor, naipe;
     char naipes[4] = {'C', 'O', 'P', 'E'}; // C = copas, E = espada, P = paus, O = ouro 
+    Inicializa_Carta(&Baralho[0], 0, 'V'); // Tornando a carta vazia "NULL"
 
-    for (int i = 0; i < 52; i++){
+    for (int i = 1; i < 53; i++){
         valor = (i % 13) + 1; // Como o i%13 vai  gerar numeros de 0 a 12, por isso utilizei o "+1"
         naipe = naipes[i % 4];
         Inicializa_Carta(&Baralho[i], valor, naipe);
     }
 }
 
+void Embaralhar(Carta Baralho[53]){
+    int nova_posicao;
+    Carta carta_aux;
+    srand(time(NULL));
+
+    for (int i = 52; i > 0; i--){
+        nova_posicao = (rand() % i)+1; 
+        // gerando uma posição aleatória que vai de 1 ate i, o (rand() % i) gera um valor de 0 até i-1, 
+        // o "+1" no final garante que i esteja entre 0 e i 
+        carta_aux = Baralho[i];
+        Baralho[i] = Baralho[nova_posicao];
+        Baralho[nova_posicao] = carta_aux;
+    }
+}
+
 int main() {
-    Carta Baralho[52];
+    Carta Baralho[53];
     
     Preenher_Baralho_Iterativo(Baralho);
-    for (int i = 0; i < 52; i++){
+    Embaralhar(Baralho);
+    for (int i = 0; i < 53; i++){
         printf("- %d - %d %c %d\n", i, Baralho[i].valor, Baralho[i].naipe, Baralho[i].posicao);
     }
 
@@ -35,8 +53,10 @@ int main() {
     printf("A sequencia de naipe eh %d\n", Verifica_Sequencia_Naipe(&Baralho[0], &Baralho[40]));
     printf("A sequencia de alternada eh %d\n", Verifica_Sequencia_Alternada(&Baralho[38], &Baralho[37]));
     
-    Exibir_Carta(&Baralho[1]);
+    Exibir_Carta(&Baralho[0]);
     Altera_Posicao_Carta(&Baralho[1]);
     Exibir_Carta(&Baralho[1]);
-    return 0;  
+    return 0;
+
+
 }

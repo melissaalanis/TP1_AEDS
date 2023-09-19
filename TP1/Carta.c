@@ -31,10 +31,6 @@ void Altera_Posicao_Carta(Carta* carta){ // Função q altera a posição da car
 }
 
 int Verifica_Sequencia_Naipe(Carta* carta1, Carta* carta2){ // Verifica se as cartas possuem o mesmo naipe e se formam uma sequencia crescente
-    if((carta1 == NULL) && (carta2 -> valor) == 0 /*ÁS = 0*/){
-        return True;
-    }
-    
     if(carta1 -> naipe == carta2 -> naipe){
         if(carta2 -> valor == carta1 -> valor + 1){ //
             return True;
@@ -45,7 +41,7 @@ int Verifica_Sequencia_Naipe(Carta* carta1, Carta* carta2){ // Verifica se as ca
 }
 
 int Verifica_Sequencia_Alternada(Carta* carta1, Carta* carta2){ //TABLEAU
-    if((carta1 == NULL) && (carta2 -> valor == 13)){ //Verifica se a primeira carta é 0, se for, o Rei pode ser colocado naquele espaço do tableau
+    if((carta1 -> valor == 0) && (carta2 -> valor == 13)){ //Verifica se a primeira carta é 0, se for, o Rei pode ser colocado naquele espaço do tableau
         return True;
     }
 
@@ -54,8 +50,6 @@ int Verifica_Sequencia_Alternada(Carta* carta1, Carta* carta2){ //TABLEAU
             return True;
          }
     }
-
-
     return False;
 }
 

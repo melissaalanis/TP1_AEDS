@@ -3,8 +3,8 @@
 #define False 0
 
 typedef struct {
-    char naipe; // C = copas, E = espada, P = paus, O = ouro 
-    int valor; // inteiro de 1(ÁS) até 13(k)
+    char naipe; // C = copas, E = espada, P = paus, O = ouro, V = carta NULL 
+    int valor; // inteiro de 1(ÁS) até 13(k) e 0(carta NULL)
     int posicao; // False = virado para baixo e True = virado para cima
 } Carta;
 
