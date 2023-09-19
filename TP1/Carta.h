@@ -22,5 +22,7 @@ void Altera_Posicao_Carta(Carta* carta);
 int Verifica_Sequencia_Naipe(Carta* carta1, Carta* carta2);
 int Verifica_Sequencia_Alternada(Carta* carta1, Carta* carta2);// carta1= carta debaixo e carta2=carta de cima
 
+// Exibir carta no terminal
+void Exibir_Carta(Carta* carta);
 
 

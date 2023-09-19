@@ -34,5 +34,9 @@ int main() {
 */
     printf("A sequencia de naipe eh %d\n", Verifica_Sequencia_Naipe(&Baralho[0], &Baralho[40]));
     printf("A sequencia de alternada eh %d\n", Verifica_Sequencia_Alternada(&Baralho[38], &Baralho[37]));
+    
+    Exibir_Carta(&Baralho[1]);
+    Altera_Posicao_Carta(&Baralho[1]);
+    Exibir_Carta(&Baralho[1]);
     return 0;  
 }

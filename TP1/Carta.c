@@ -54,7 +54,16 @@ int Verifica_Sequencia_Alternada(Carta* carta1, Carta* carta2){ //TABLEAU
             return True;
          }
     }
-    
+
+
     return False;
+}
+
+void Exibir_Carta(Carta* carta){
+    if (carta -> posicao == True){
+        printf("[%d %c]", carta->valor, carta->naipe);    
+    } else {
+        printf("[  ]");
+    }
 }
 
