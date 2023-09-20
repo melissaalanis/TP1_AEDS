@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "Carta.h"
+//#include "Carta.h"
+#include "Lista_de_Cartas.h"
 
 /*
     COPAS E OUROS - NAIPES VERMELHOS
@@ -49,7 +50,7 @@ int main() {
     printf("A posicao da carta eh %d\n", Retorna_Posicao_Carta(&Baralho[5]));
     printf("O naipe da carta eh %c\n", Retorna_Naipe_Carta(&Baralho[5]));
     printf("O valor da carta eh %d", Retorna_Valor_Carta(&Baralho[5]));
-*/
+
     printf("A sequencia de naipe eh %d\n", Verifica_Sequencia_Naipe(&Baralho[0], &Baralho[40]));
     printf("A sequencia de alternada eh %d\n", Verifica_Sequencia_Alternada(&Baralho[38], &Baralho[37]));
     
@@ -57,6 +58,11 @@ int main() {
     Altera_Posicao_Carta(&Baralho[1]);
     Exibir_Carta(&Baralho[1]);
     return 0;
+*/
 
-
+    Lista_de_Cartas lista;
+    Inicializar_Lista_Vazia(&lista);
+    printf("%d", Verifica_Lista_Vazia(&lista));
+    
+    return 0;
 }
