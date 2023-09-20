@@ -12,7 +12,7 @@
 void Preenher_Baralho_Iterativo(Carta Baralho[53]){ // Inicializa o baralho que será usado no modo iterativo
     int valor, naipe;
     char naipes[4] = {'C', 'O', 'P', 'E'}; // C = copas, E = espada, P = paus, O = ouro 
-    Inicializa_Carta(&Baralho[0], 0, 'V'); // Tornando a carta vazia "NULL"
+    Inicializa_Carta(&Baralho[0], 0, 'V'); // Tornando a carta vazia "NULL", padronizamos que terá uma carta com o valor 0, ela será carta nula, por isso o vetor tem 53 posições
 
     for (int i = 1; i < 53; i++){
         valor = (i % 13) + 1; // Como o i%13 vai  gerar numeros de 0 a 12, por isso utilizei o "+1"
@@ -62,7 +62,10 @@ int main() {
 
     Lista_de_Cartas lista;
     Inicializar_Lista_Vazia(&lista);
-    printf("%d", Verifica_Lista_Vazia(&lista));
-    
+    printf("%d\n", Verifica_Lista_Vazia(&lista));
+    Adicionar_Carta_ao_Topo(&lista, &Baralho[1]);
+    Adicionar_Carta_ao_Topo(&lista, &Baralho[2]);
+    Adicionar_Carta_ao_Topo(&lista, &Baralho[3]);
+    printf("%d\n", Retornar_Tamanho_Lista(&lista));
     return 0;
 }
