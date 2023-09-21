@@ -36,7 +36,34 @@ Carta Retorna_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
     }
 }
 
-// Carta Retorna_Posicao_Carta(Lista_de_Cartas* lista_de_cartas, int posicaoCarta){} TERMINAR MELISSA
+
+Carta Retorna_Posicao_Carta(Lista_de_Cartas* lista_de_cartas, int posicaoCarta){ // CORRIGIR ERROS TERMINAL - MELISSA
+    // Posição 0 (Carta do Topo): Ultima carta
+    // Posição n (Carta do fundo): Primeira carta (Não é n-1 porque nao contamos a celula cabeça no tamanho da lista.)
+    if (posicaoCarta==Retornar_Tamanho_Lista(lista_de_cartas)) {
+        return lista_de_cartas -> primeiro -> prox -> carta;
+    }
+
+    else if(posicaoCarta == 0){
+        return lista_de_cartas -> ultimo -> carta;
+    }
+
+    else{
+        int tam = Retornar_Tamanho_Lista(lista_de_cartas);
+        int novotam = tam - posicaoCarta;
+        novotam++;
+
+        Celula *aux = lista_de_cartas -> primeiro -> prox;
+        int contador = 0;
+        while(contador != novotam){
+            contador++;
+            aux = aux -> prox;
+        }
+
+        return aux -> carta;       
+    }
+
+}
 
 void Adicionar_Carta_ao_Topo(Lista_de_Cartas* lista_de_cartas, Carta* carta){ //Testar função
     lista_de_cartas -> ultimo -> prox = (Celula*)malloc(sizeof(Celula)); //Ligando minha nova celula a anterior a ela (antiga ultima)
@@ -55,10 +82,19 @@ int Retirar_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
 }
 
 void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta){
-    int tamanho = Retornar_Tamanho_Lista;
+    Celula* auxiliar = lista_de_cartas -> primeiro -> prox;
+    Celula* auxiliar2 = lista_de_cartas -> primeiro;
+    int tamanho = Retornar_Tamanho_Lista(lista_de_cartas);
     int novo_tamanho = tamanho - quantidadeCarta;
+    printf("\n numero de cartas iniciais: %d ", tamanho);
     while(tamanho != novo_tamanho){
-        
+        auxiliar2 = auxiliar2 -> prox; // Recebe o endereco de memoria da celula que se tornará a ultima
+        auxiliar = auxiliar -> prox; // Recebe o endereco de memoria da celula que ira se tornar a primeira quando houver o rompimento
+        tamanho = tamanho - 1;
     }
-    // lista_de_cartas -> primeiro ; TERMINAR CAIO
+    lista_de_cartas -> ultimo = auxiliar2;
+    lista_de_cartas -> ultimo -> prox = NULL;
+    
+    printf("\n numero de cartas removidas: %d ", quantidadeCarta);
+    printf("\n numero de cartas atuais: %d ", novo_tamanho);
 }

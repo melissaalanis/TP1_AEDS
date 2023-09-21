@@ -66,6 +66,9 @@ int main() {
     Adicionar_Carta_ao_Topo(&lista, &Baralho[1]);
     Adicionar_Carta_ao_Topo(&lista, &Baralho[2]);
     Adicionar_Carta_ao_Topo(&lista, &Baralho[3]);
+    Adicionar_Carta_ao_Topo(&lista, &Baralho[4]);
+    Adicionar_Carta_ao_Topo(&lista, &Baralho[5]);
     printf("%d\n", Retornar_Tamanho_Lista(&lista));
+    Transferir_Carta(&lista, 2);
     return 0;
 }
