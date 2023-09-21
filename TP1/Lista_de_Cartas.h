@@ -18,4 +18,4 @@ Carta Retorna_Carta_Posicao(Lista_de_Cartas* lista_de_cartas, int posicaoCarta);
 void Adicionar_Carta_ao_Topo(Lista_de_Cartas* lista_de_cartas, Carta* carta);
 int Retirar_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas);
 void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lista_de_Cartas* lista_de_cartas2); 
-void Exibir_Lista(Lista_de_Cartas *lista_de_cartas, char tipo_exibicao);
+void Exibir_Lista_Cartas(Lista_de_Cartas *lista_de_cartas, char tipo_exibicao);

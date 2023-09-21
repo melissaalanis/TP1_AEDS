@@ -85,6 +85,7 @@ int main() {
     Transferir_Carta(&lista, 2 , &lista2);
     
     printf("A carta dessa posicao eh %d %c %d\n ", cartinha.valor, cartinha.naipe, cartinha.posicao);
+    Exibir_Lista_Cartas(&lista, "t"); // T para topo e L para lista inteira
 
     // printf("%d\n", Retornar_Tamanho_Lista(&lista));
     return 0;

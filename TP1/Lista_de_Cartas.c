@@ -122,11 +122,15 @@ void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lis
      
 }
 
-void Exibir_Lista(Lista_de_Cartas *lista_de_cartas, char tipo_exibicao){ // RODAR FUNCAO DPS
-    if (Verifica_Lista_Vazia){
+void Exibir_Lista_Cartas(Lista_de_Cartas *lista_de_cartas, char tipo_exibicao){ // RODAR FUNCAO DPS
+    if (Verifica_Lista_Vazia == 1){
         printf("LISTA VAZIA\n");
     }
-    else{
+    else if(tipo_exibicao == "t"){
+            Carta carta_aux = lista_de_cartas -> ultimo -> carta;
+            printf("%d %c %d\n", carta_aux.valor, carta_aux.naipe, carta_aux.posicao);
+    }
+    else if (tipo_exibicao == "l"){
         Celula *aux = lista_de_cartas -> primeiro -> prox;
         while(aux != NULL){
             Carta carta_aux = aux -> carta;
