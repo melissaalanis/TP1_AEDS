@@ -73,17 +73,19 @@ void Adicionar_Carta_ao_Topo(Lista_de_Cartas* lista_de_cartas, Carta* carta){ //
 }
 
 int Retirar_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){ 
-    if (Verifica_Lista_Vazia){ 
+    if (Verifica_Lista_Vazia(lista_de_cartas)){  //Não é possível retirar carta de uma lista vazia
         return 0;
     } 
     
-    Celula* celula_aux = lista_de_cartas -> primeiro -> prox;
+    Celula* celula_aux = lista_de_cartas -> primeiro; //celula auxiliar começa com o minha primeira carta (contando com a celula cabeça)
     
-    while(celula_aux != lista_de_cartas -> ultimo){ 
+    while(celula_aux -> prox -> prox != NULL ){ //verifica se o campo prox da minha proxima célula é NULL, se a próxima carta é a ultima
         celula_aux = celula_aux -> prox; 
     } 
-    lista_de_cartas -> ultimo  = celula_aux; 
-    return 0;
+    free(celula_aux -> prox); //libera o espaço da memória do meu antigo ultimo item 
+    celula_aux -> prox = NULL; //o campo prox da minha nova ultima celula é NULL
+    lista_de_cartas -> ultimo  = celula_aux; //passa minha nova ultima celula para o meu ponteiro
+    return 1;
 }
 
 void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lista_de_Cartas* lista_de_cartas_receptora){
@@ -123,14 +125,14 @@ void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lis
 }
 
 void Exibir_Lista_Cartas(Lista_de_Cartas *lista_de_cartas, char tipo_exibicao){ // RODAR FUNCAO DPS
-    if (Verifica_Lista_Vazia == 1){
+    if (Verifica_Lista_Vazia(lista_de_cartas) == 1){
         printf("LISTA VAZIA\n");
     }
-    else if(tipo_exibicao == "t"){
+    else if(tipo_exibicao == 't'){
             Carta carta_aux = lista_de_cartas -> ultimo -> carta;
             printf("%d %c %d\n", carta_aux.valor, carta_aux.naipe, carta_aux.posicao);
     }
-    else if (tipo_exibicao == "l"){
+    else if (tipo_exibicao == 'l'){
         Celula *aux = lista_de_cartas -> primeiro -> prox;
         while(aux != NULL){
             Carta carta_aux = aux -> carta;

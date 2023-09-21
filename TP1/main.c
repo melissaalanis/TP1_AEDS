@@ -41,9 +41,10 @@ int main() {
     
     Preenher_Baralho_Iterativo(Baralho);
     Embaralhar(Baralho);
+    /*
     for (int i = 0; i < 53; i++){
         printf("- %d - %d %c %d\n", i, Baralho[i].valor, Baralho[i].naipe, Baralho[i].posicao);
-    }
+    } */
 
 /* Testando os returns e a alteração da posição da carta (APAGAR DEPOIS)
     Altera_Posicao_Carta(&Baralho[5]);
@@ -69,10 +70,6 @@ int main() {
     Adicionar_Carta_ao_Topo(&lista, &Baralho[4]);
     Adicionar_Carta_ao_Topo(&lista, &Baralho[5]);
     
-    
-    printf("t1%d\n", Retornar_Tamanho_Lista(&lista));
-    Retirar_Carta_do_Topo(&lista);
-    printf("t2%d\n", Retornar_Tamanho_Lista(&lista));
 
     Carta cartinha = Retorna_Carta_Posicao(&lista, 5);
 
@@ -81,11 +78,12 @@ int main() {
     Adicionar_Carta_ao_Topo(&lista2, &Baralho[1]);
     Adicionar_Carta_ao_Topo(&lista2, &Baralho[2]);
     printf("%d\n", Retornar_Tamanho_Lista(&lista2));
+    Exibir_Lista_Cartas(&lista, 'l'); // T para topo e L para lista inteira
     
     Transferir_Carta(&lista, 2 , &lista2);
     
-    printf("A carta dessa posicao eh %d %c %d\n ", cartinha.valor, cartinha.naipe, cartinha.posicao);
-    Exibir_Lista_Cartas(&lista, "t"); // T para topo e L para lista inteira
+     // printf("A carta dessa posicao eh %d %c %d\n ", cartinha.valor, cartinha.naipe, cartinha.posicao);
+    
 
     // printf("%d\n", Retornar_Tamanho_Lista(&lista));
     return 0;
