@@ -68,7 +68,24 @@ int main() {
     Adicionar_Carta_ao_Topo(&lista, &Baralho[3]);
     Adicionar_Carta_ao_Topo(&lista, &Baralho[4]);
     Adicionar_Carta_ao_Topo(&lista, &Baralho[5]);
-    printf("%d\n", Retornar_Tamanho_Lista(&lista));
-    Transferir_Carta(&lista, 2);
+    
+    
+    printf("t1%d\n", Retornar_Tamanho_Lista(&lista));
+    Retirar_Carta_do_Topo(&lista);
+    printf("t2%d\n", Retornar_Tamanho_Lista(&lista));
+
+    Carta cartinha = Retorna_Carta_Posicao(&lista, 5);
+
+    Lista_de_Cartas lista2;
+    Inicializar_Lista_Vazia(&lista2);
+    Adicionar_Carta_ao_Topo(&lista2, &Baralho[1]);
+    Adicionar_Carta_ao_Topo(&lista2, &Baralho[2]);
+    printf("%d\n", Retornar_Tamanho_Lista(&lista2));
+    
+    Transferir_Carta(&lista, 2 , &lista2);
+    
+    printf("A carta dessa posicao eh %d %c %d\n ", cartinha.valor, cartinha.naipe, cartinha.posicao);
+
+    // printf("%d\n", Retornar_Tamanho_Lista(&lista));
     return 0;
 }

@@ -37,7 +37,7 @@ Carta Retorna_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
 }
 
 
-Carta Retorna_Posicao_Carta(Lista_de_Cartas* lista_de_cartas, int posicaoCarta){ // CORRIGIR ERROS TERMINAL - MELISSA
+Carta Retorna_Carta_Posicao(Lista_de_Cartas* lista_de_cartas, int posicaoCarta){
     // Posição 0 (Carta do Topo): Ultima carta
     // Posição n (Carta do fundo): Primeira carta (Não é n-1 porque nao contamos a celula cabeça no tamanho da lista.)
     if (posicaoCarta==Retornar_Tamanho_Lista(lista_de_cartas)) {
@@ -49,19 +49,19 @@ Carta Retorna_Posicao_Carta(Lista_de_Cartas* lista_de_cartas, int posicaoCarta){
     }
 
     else{
-        int tam = Retornar_Tamanho_Lista(lista_de_cartas);
-        int novotam = tam - posicaoCarta;
-        novotam++;
+    int tam = Retornar_Tamanho_Lista(lista_de_cartas);
+    int novotam = tam - posicaoCarta;
+    novotam--;
 
-        Celula *aux = lista_de_cartas -> primeiro -> prox;
-        int contador = 0;
-        while(contador != novotam){
-            contador++;
-            aux = aux -> prox;
-        }
-
-        return aux -> carta;       
+    Celula *aux = lista_de_cartas -> primeiro -> prox;
+    int contador = 0;
+    while(contador != novotam){
+        contador++;
+        aux = aux -> prox;
     }
+
+    return aux -> carta;       
+}
 
 }
 
@@ -72,29 +72,66 @@ void Adicionar_Carta_ao_Topo(Lista_de_Cartas* lista_de_cartas, Carta* carta){ //
     lista_de_cartas -> ultimo -> prox = NULL; //Como o prox do ultimo não aponta para nada, passamos NULL
 }
 
-int Retirar_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
-    if (Verifica_Lista_Vazia){
+int Retirar_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){ 
+    if (Verifica_Lista_Vazia){ 
         return 0;
-    }
-    Celula* celula_aux;
-    celula_aux = lista_de_cartas -> ultimo;
-    // lista_de_cartas -> ultimo = TERMINAR LETICIA
+    } 
+    
+    Celula* celula_aux = lista_de_cartas -> primeiro -> prox;
+    
+    while(celula_aux != lista_de_cartas -> ultimo){ 
+        celula_aux = celula_aux -> prox; 
+    } 
+    lista_de_cartas -> ultimo  = celula_aux; 
+    return 0;
 }
 
-void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta){
-    Celula* auxiliar = lista_de_cartas -> primeiro -> prox;
-    Celula* auxiliar2 = lista_de_cartas -> primeiro;
+void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lista_de_Cartas* lista_de_cartas_receptora){
+    if (Verifica_Lista_Vazia(lista_de_cartas)){ // Verifica se a lista doadora está vazia
+        printf("A lista doadora está vazia");
+    }
+    
     int tamanho = Retornar_Tamanho_Lista(lista_de_cartas);
-    int novo_tamanho = tamanho - quantidadeCarta;
+    int novo_tamanho = tamanho - quantidadeCarta;    // Analisa a quantidade de celulas que serao percorridas
+
+    Celula* auxiliar = lista_de_cartas -> primeiro -> prox; // Comeca na primeira celula com conteudo
+    Celula* auxiliar2 = lista_de_cartas -> primeiro; //Comeca da celula cabeça
+    int x=0;
     printf("\n numero de cartas iniciais: %d ", tamanho);
-    while(tamanho != novo_tamanho){
+
+    while(tamanho != novo_tamanho-1){
+        x++;
+        printf("contador= %d", x);
         auxiliar2 = auxiliar2 -> prox; // Recebe o endereco de memoria da celula que se tornará a ultima
         auxiliar = auxiliar -> prox; // Recebe o endereco de memoria da celula que ira se tornar a primeira quando houver o rompimento
         tamanho = tamanho - 1;
     }
+
     lista_de_cartas -> ultimo = auxiliar2;
-    lista_de_cartas -> ultimo -> prox = NULL;
-    
-    printf("\n numero de cartas removidas: %d ", quantidadeCarta);
-    printf("\n numero de cartas atuais: %d ", novo_tamanho);
+    lista_de_cartas -> ultimo -> prox = NULL; 
+
+    printf("\n numero de cartas removidas da lista doadora: %d ", quantidadeCarta);
+    printf("\n numero de cartas atuais na lista doadora: %d \n", novo_tamanho);
+
+    int tamanho_lista_saida = Retornar_Tamanho_Lista(lista_de_cartas_receptora);
+    printf("\n numero de cartas iniciais da lista receptora: %d ", tamanho_lista_saida);
+    lista_de_cartas_receptora -> ultimo -> prox = auxiliar; //Atualizando o meu ultimo para a nova celula alocada
+    auxiliar -> prox = NULL;
+    tamanho_lista_saida = Retornar_Tamanho_Lista(lista_de_cartas_receptora);
+    printf("\n numero de cartas da lista receptora apos a mudanca: %d ", tamanho_lista_saida);
+     
+}
+
+void Exibir_Lista(Lista_de_Cartas *lista_de_cartas, char tipo_exibicao){ // RODAR FUNCAO DPS
+    if (Verifica_Lista_Vazia){
+        printf("LISTA VAZIA\n");
+    }
+    else{
+        Celula *aux = lista_de_cartas -> primeiro -> prox;
+        while(aux != NULL){
+            Carta carta_aux = aux -> carta;
+            printf("%d %c %d\n", carta_aux.valor, carta_aux.naipe, carta_aux.posicao);
+            aux = aux -> prox;
+        }
+    }
 }
