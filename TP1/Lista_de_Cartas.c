@@ -1,6 +1,7 @@
 #include "Lista_de_Cartas.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void Inicializar_Lista_Vazia(Lista_de_Cartas* lista_de_cartas){ //Estamos utilizando célula cabeça
     lista_de_cartas -> primeiro = (Celula*)malloc(sizeof(lista_de_cartas)); 
@@ -114,25 +115,35 @@ void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lis
     lista_de_cartas_receptora -> ultimo -> prox = auxiliar; // A antiga ultima posiçao da lista receptora passa a apontar para as celula transplantada
 }
 
-void Embaralhar_Carta(Lista_de_Cartas* lista_de_cartas, Carta* carta){
-    int tamanho = Retornar_Tamanho_Lista(lista_de_cartas)-2;
-    char* vetor = (int *)malloc(tamanho * sizeof(int));
+void Embaralhar_Carta(Lista_de_Cartas* lista_de_cartas){
+    
+    //Preenchendo meu vetor com os itens da lista encadeada
+    Celula* celula_aux = lista_de_cartas -> primeiro -> prox;
+    int tamanho = Retornar_Tamanho_Lista(lista_de_cartas);
+    Carta Baralho[tamanho];
     for(int i=0; i < tamanho; i++){
-        lista_de_cartas -> primeiro -> prox;
-        vetor[i] = lista_de_cartas -> primeiro -> carta ; // Preenchendo o meu vetor com os enderecos de memoria TA DANDO ERROOOOOOOOOOOOOOOOOO
-        // tenho que retirar essa celula aq 
+        Baralho[i] = celula_aux -> carta; // Preenchendo o meu vetor com as cartas da lista
+        celula_aux = celula_aux -> prox;
     }
+    
+    // Embaralhando meu vetor usando Fisher-Yates
+    int nova_posicao;
+    Carta carta_aux;
+    srand(time(NULL));
+    for (int i = tamanho-1 ; i > 0; i--){
+        nova_posicao = (rand() % (i)); // gerando uma posição aleatória que vai de 1 ate i
+        carta_aux = Baralho[i];
+        Baralho[i] = Baralho[nova_posicao];
+        Baralho[nova_posicao] = carta_aux;
 
-	for (int i = 0; i < tamanho; i++){ // Embaralhar o vetor
-		int r = rand() % tamanho;
-		int temp = vetor[i];
-		vetor[i] = vetor[r];
-		vetor[r] = temp;
-	}
-
-    for (int i = 0; i < tamanho; i++){
-		printf("Vetor posicao: %d %d",i, vetor[i]);
-	}
+    }
+    
+    //Passando o vetor embaralhado para a minha lista encadeada
+    celula_aux = lista_de_cartas -> primeiro -> prox;
+    for(int i=0; i < tamanho; i++){
+        celula_aux -> carta = Baralho[i]; 
+        celula_aux = celula_aux -> prox;
+    }
 
 }
 

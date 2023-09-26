@@ -21,26 +21,10 @@ void Preenher_Baralho_Iterativo(Carta Baralho[53]){ // Inicializa o baralho que 
     }
 }
 
-void Embaralhar(Carta Baralho[53]){
-    int nova_posicao;
-    Carta carta_aux;
-    srand(time(NULL));
-
-    for (int i = 52; i > 0; i--){
-        nova_posicao = (rand() % i)+1; 
-        // gerando uma posição aleatória que vai de 1 ate i, o (rand() % i) gera um valor de 0 até i-1, 
-        // o "+1" no final garante que i esteja entre 0 e i 
-        carta_aux = Baralho[i];
-        Baralho[i] = Baralho[nova_posicao];
-        Baralho[nova_posicao] = carta_aux;
-    }
-}
-
 int main() {
     Carta Baralho[53];
     
     Preenher_Baralho_Iterativo(Baralho);
-    Embaralhar(Baralho);
     /*
     for (int i = 0; i < 53; i++){
         printf("- %d - %d %c %d\n", i, Baralho[i].valor, Baralho[i].naipe, Baralho[i].posicao);
@@ -71,26 +55,26 @@ int main() {
     Adicionar_Carta_ao_Topo(&lista, &Baralho[5]);
     
 
-    Carta cartinha = Retorna_Carta_Posicao(&lista, 5);
+    //Carta cartinha = Retorna_Carta_Posicao(&lista, 5);
 
     Lista_de_Cartas lista2;
-    Inicializar_Lista_Vazia(&lista2);
+    /*Inicializar_Lista_Vazia(&lista2);
     Adicionar_Carta_ao_Topo(&lista2, &Baralho[1]);
     Adicionar_Carta_ao_Topo(&lista2, &Baralho[2]);
     printf("%d\n", Retornar_Tamanho_Lista(&lista2));
-    printf("\n LISTA 1 \n");
-    Exibir_Lista_Cartas(&lista, 'l'); // T para topo e L para lista inteira
+
     printf("\n LISTA 2 \n");
-    Exibir_Lista_Cartas(&lista2, 'l'); // T para topo e L para lista inteira
+    Exibir_Lista_Cartas(&lista2, 'l'); // T para topo e L para lista inteira*/
     
-    Transferir_Carta(&lista, 2 , &lista2);
+    //Transferir_Carta(&lista, 2 , &lista2);
     
      // printf("A carta dessa posicao eh %d %c %d\n ", cartinha.valor, cartinha.naipe, cartinha.posicao);
-    
-    printf("\n LISTA 1\n");
+    printf("\n LISTA 1 \n");
     Exibir_Lista_Cartas(&lista, 'l'); // T para topo e L para lista inteira
-    printf("\n LISTA 2 \n");
-    Exibir_Lista_Cartas(&lista2, 'l'); // T para topo e L para lista inteira
+    printf("\n LISTA 1 EMBARALHADA\n");
+    Embaralhar_Carta(&lista);
+    Exibir_Lista_Cartas(&lista, 'l');
+
 
     // printf("%d\n", Retornar_Tamanho_Lista(&lista));
     return 0;
