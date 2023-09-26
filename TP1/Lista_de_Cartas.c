@@ -89,8 +89,13 @@ int Retirar_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
 }
 
 void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lista_de_Cartas* lista_de_cartas_receptora){
+    
     if (Verifica_Lista_Vazia(lista_de_cartas)){ // Verifica se a lista doadora está vazia
-        printf("A lista doadora está vazia");
+        printf("Operacao invalida");
+    }
+
+    if (Retornar_Tamanho_Lista(lista_de_cartas) <= quantidadeCarta){ // Verifica se a lista doadora possui cartas suficientes a serem retiradas
+        printf("Operacao invalida 1");
     }
     
     int tamanho = Retornar_Tamanho_Lista(lista_de_cartas);
@@ -98,30 +103,37 @@ void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lis
 
     Celula* auxiliar = lista_de_cartas -> primeiro -> prox; // Comeca na primeira celula com conteudo
     Celula* auxiliar2 = lista_de_cartas -> primeiro; //Comeca da celula cabeça
-    int x=0;
-    printf("\n numero de cartas iniciais: %d ", tamanho);
 
-    while(tamanho != novo_tamanho-1){
-        x++;
-        printf("contador= %d", x);
+    for( int i=0;i<novo_tamanho; i++){
         auxiliar2 = auxiliar2 -> prox; // Recebe o endereco de memoria da celula que se tornará a ultima
         auxiliar = auxiliar -> prox; // Recebe o endereco de memoria da celula que ira se tornar a primeira quando houver o rompimento
-        tamanho = tamanho - 1;
     }
 
-    lista_de_cartas -> ultimo = auxiliar2;
-    lista_de_cartas -> ultimo -> prox = NULL; 
+    lista_de_cartas -> ultimo = auxiliar2; // A ultima celula é redefinida para a ultima celula que ficou apos a retirada
+    lista_de_cartas -> ultimo -> prox = NULL; // Definindo que a lista de cartas tenha um final ( já que o seu ultimo foi retirado)
+    lista_de_cartas_receptora -> ultimo -> prox = auxiliar; // A antiga ultima posiçao da lista receptora passa a apontar para as celula transplantada
+}
 
-    printf("\n numero de cartas removidas da lista doadora: %d ", quantidadeCarta);
-    printf("\n numero de cartas atuais na lista doadora: %d \n", novo_tamanho);
+void Embaralhar_Carta(Lista_de_Cartas* lista_de_cartas, Carta* carta){
+    int tamanho = Retornar_Tamanho_Lista(lista_de_cartas)-2;
+    char* vetor = (int *)malloc(tamanho * sizeof(int));
+    for(int i=0; i < tamanho; i++){
+        lista_de_cartas -> primeiro -> prox;
+        vetor[i] = lista_de_cartas -> primeiro -> carta ; // Preenchendo o meu vetor com os enderecos de memoria TA DANDO ERROOOOOOOOOOOOOOOOOO
+        // tenho que retirar essa celula aq 
+    }
 
-    int tamanho_lista_saida = Retornar_Tamanho_Lista(lista_de_cartas_receptora);
-    printf("\n numero de cartas iniciais da lista receptora: %d ", tamanho_lista_saida);
-    lista_de_cartas_receptora -> ultimo -> prox = auxiliar; //Atualizando o meu ultimo para a nova celula alocada
-    auxiliar -> prox = NULL;
-    tamanho_lista_saida = Retornar_Tamanho_Lista(lista_de_cartas_receptora);
-    printf("\n numero de cartas da lista receptora apos a mudanca: %d ", tamanho_lista_saida);
-     
+	for (int i = 0; i < tamanho; i++){ // Embaralhar o vetor
+		int r = rand() % tamanho;
+		int temp = vetor[i];
+		vetor[i] = vetor[r];
+		vetor[r] = temp;
+	}
+
+    for (int i = 0; i < tamanho; i++){
+		printf("Vetor posicao: %d %d",i, vetor[i]);
+	}
+
 }
 
 void Exibir_Lista_Cartas(Lista_de_Cartas *lista_de_cartas, char tipo_exibicao){ // RODAR FUNCAO DPS

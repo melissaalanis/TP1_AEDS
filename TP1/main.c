@@ -78,12 +78,19 @@ int main() {
     Adicionar_Carta_ao_Topo(&lista2, &Baralho[1]);
     Adicionar_Carta_ao_Topo(&lista2, &Baralho[2]);
     printf("%d\n", Retornar_Tamanho_Lista(&lista2));
+    printf("\n LISTA 1 \n");
     Exibir_Lista_Cartas(&lista, 'l'); // T para topo e L para lista inteira
+    printf("\n LISTA 2 \n");
+    Exibir_Lista_Cartas(&lista2, 'l'); // T para topo e L para lista inteira
     
     Transferir_Carta(&lista, 2 , &lista2);
     
      // printf("A carta dessa posicao eh %d %c %d\n ", cartinha.valor, cartinha.naipe, cartinha.posicao);
     
+    printf("\n LISTA 1\n");
+    Exibir_Lista_Cartas(&lista, 'l'); // T para topo e L para lista inteira
+    printf("\n LISTA 2 \n");
+    Exibir_Lista_Cartas(&lista2, 'l'); // T para topo e L para lista inteira
 
     // printf("%d\n", Retornar_Tamanho_Lista(&lista));
     return 0;
