@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 //#include "Carta.h"
-#include "Lista_de_Cartas.h"
+//#include "Lista_de_Cartas.h"
+#include "Mesa.h"
 
 /*
     COPAS E OUROS - NAIPES VERMELHOS
@@ -75,6 +76,8 @@ int main() {
     Embaralhar_Baralho(&lista);
     Exibir_Lista_Cartas(&lista, 'l');
 
+    Mesa mesa;
+    Inicializar_Mesa(&mesa);
 
     // printf("%d\n", Retornar_Tamanho_Lista(&lista));
     return 0;
