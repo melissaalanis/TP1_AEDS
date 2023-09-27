@@ -115,7 +115,7 @@ void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lis
     lista_de_cartas_receptora -> ultimo -> prox = auxiliar; // A antiga ultima posiçao da lista receptora passa a apontar para as celula transplantada
 }
 
-void Embaralhar_Carta(Lista_de_Cartas* lista_de_cartas){
+void Embaralhar_Baralho(Lista_de_Cartas* lista_de_cartas){
     
     //Preenchendo meu vetor com os itens da lista encadeada
     Celula* celula_aux = lista_de_cartas -> primeiro -> prox;

@@ -72,7 +72,7 @@ int main() {
     printf("\n LISTA 1 \n");
     Exibir_Lista_Cartas(&lista, 'l'); // T para topo e L para lista inteira
     printf("\n LISTA 1 EMBARALHADA\n");
-    Embaralhar_Carta(&lista);
+    Embaralhar_Baralho(&lista);
     Exibir_Lista_Cartas(&lista, 'l');
 
 
