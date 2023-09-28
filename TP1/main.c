@@ -78,6 +78,7 @@ int main() {
 
     Mesa mesa;
     Inicializar_Mesa(&mesa);
+    Carregar_Baralho_Aleatorio(&mesa);
 
     // printf("%d\n", Retornar_Tamanho_Lista(&lista));
     return 0;

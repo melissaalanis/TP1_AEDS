@@ -153,13 +153,13 @@ void Exibir_Lista_Cartas(Lista_de_Cartas *lista_de_cartas, char tipo_exibicao){ 
     }
     else if(tipo_exibicao == 't'){
             Carta carta_aux = lista_de_cartas -> ultimo -> carta;
-            printf("%d %c %d\n", carta_aux.valor, carta_aux.naipe, carta_aux.posicao);
+            printf("%d %c\n", carta_aux.valor, carta_aux.naipe);
     }
     else if (tipo_exibicao == 'l'){
         Celula *aux = lista_de_cartas -> primeiro -> prox;
         while(aux != NULL){
             Carta carta_aux = aux -> carta;
-            printf("%d %c %d\n", carta_aux.valor, carta_aux.naipe, carta_aux.posicao);
+            Exibir_Carta(&(carta_aux));
             aux = aux -> prox;
         }
     }
