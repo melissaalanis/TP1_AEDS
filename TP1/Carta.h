@@ -1,6 +1,7 @@
 // Os defines, linha 2 e 3, serão usados para definir a posição das cartas
 #define True 1
 #define False 0
+#define Qtd_Naipes 4
 
 typedef struct {
     char naipe; // C = copas, E = espada, P = paus, O = ouro, V = carta NULL 

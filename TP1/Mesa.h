@@ -1,10 +1,13 @@
 #include "Lista_de_Cartas.h"
+#define Qtd_Bases 4
+#define Qtd_Tableau 7
+#define Tam_Baralho 52
 
 typedef struct {
     Lista_de_Cartas Baralho;
     Lista_de_Cartas Descarte;
-    Lista_de_Cartas Base[4];
-    Lista_de_Cartas Tableau[7];
+    Lista_de_Cartas Base[Qtd_Bases];
+    Lista_de_Cartas Tableau[Qtd_Tableau];
     int pontuacao;
 } Mesa;
 

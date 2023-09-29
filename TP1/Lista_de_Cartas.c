@@ -17,32 +17,32 @@ int Verifica_Lista_Vazia(Lista_de_Cartas* lista_de_cartas){ // A função Lista 
 
 
 int Retornar_Tamanho_Lista(Lista_de_Cartas* lista_de_cartas){
-    int tamanho = 1; // Comeca com 1 porque ele nao vai somar a ultima celula;
+    int tamanho; // Comeca com 1 porque ele nao vai somar a ultima celula;
     if (Verifica_Lista_Vazia){
         tamanho=0;
     }
     Celula* auxiliar = lista_de_cartas -> primeiro -> prox; //
     while ( auxiliar != NULL) {
-        auxiliar = auxiliar -> prox;
         tamanho += 1;
+        auxiliar = auxiliar -> prox;
     }
     return tamanho;
 }
 
 
-Carta Retorna_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
+Carta* Retorna_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
     // se a lista estiver estiver vazia a função não tem retorno
     if (!Verifica_Lista_Vazia(lista_de_cartas)){
-        return lista_de_cartas -> ultimo -> carta;
+        return &(lista_de_cartas -> ultimo -> carta);
     }
 }
 
 
-Carta Retorna_Carta_Posicao(Lista_de_Cartas* lista_de_cartas, int posicaoCarta){
+Carta* Retorna_Carta_Posicao(Lista_de_Cartas* lista_de_cartas, int posicaoCarta){
     // Posição 0 (Carta do Topo): Ultima carta
     // Posição n (Carta do fundo): Primeira carta (Não é n-1 porque nao contamos a celula cabeça no tamanho da lista.)
     if (posicaoCarta==Retornar_Tamanho_Lista(lista_de_cartas)) {
-        return lista_de_cartas -> primeiro -> prox -> carta;
+        return &(lista_de_cartas -> primeiro -> prox -> carta);
     }
 
     else if(posicaoCarta == 0){
@@ -61,7 +61,7 @@ Carta Retorna_Carta_Posicao(Lista_de_Cartas* lista_de_cartas, int posicaoCarta){
         aux = aux -> prox;
     }
 
-    return aux -> carta;       
+    return &(aux -> carta);       
 }
 
 }
@@ -90,19 +90,14 @@ int Retirar_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
 }
 
 void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lista_de_Cartas* lista_de_cartas_receptora){
-    
-   /* if (Verifica_Lista_Vazia(lista_de_cartas)){ // Verifica se a lista doadora está vazia
-        printf("Operacao invalida");
+    if (Retornar_Tamanho_Lista(lista_de_cartas) < quantidadeCarta || quantidadeCarta <= 0){ // Verifica se a lista doadora possui cartas suficientes a serem retiradas
+        printf("Operacao invalida! Verifique a quantidade de cartas e o tamanho da lista, depois tente novamente ;)");
     }
-
-    if (Retornar_Tamanho_Lista(lista_de_cartas) <= quantidadeCarta){ // Verifica se a lista doadora possui cartas suficientes a serem retiradas
-        printf("Operacao invalida 1");
-    }*/
     
     int tamanho = Retornar_Tamanho_Lista(lista_de_cartas);
     int novo_tamanho = tamanho - quantidadeCarta;    // Analisa a quantidade de celulas que serao percorridas
 
-    Carta carta_aux = Retorna_Carta_Posicao(lista_de_cartas, quantidadeCarta-1);
+    Carta* carta_aux = Retorna_Carta_Posicao(lista_de_cartas, quantidadeCarta-1);
     Celula* auxiliar = lista_de_cartas -> primeiro -> prox; // Comeca na primeira celula com conteudo
     Celula* auxiliar2 = lista_de_cartas -> primeiro; //Comeca da celula cabeça
 
@@ -116,9 +111,6 @@ void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lis
     lista_de_cartas_receptora -> ultimo = lista_de_cartas -> ultimo;
     lista_de_cartas -> ultimo = auxiliar2; // A ultima celula é redefinida para a ultima celula que ficou apos a retirada
     lista_de_cartas -> ultimo -> prox = NULL; // Definindo que a lista de cartas tenha um final ( já que o seu ultimo foi retirado)
-
-    //printf("%d %c", lista_de_cartas->ultimo->carta.valor, lista_de_cartas->ultimo->carta.valor);
-    //printf("%d %c", lista_de_cartas_receptora -> ultimo -> carta.valor, lista_de_cartas_receptora -> ultimo -> carta.naipe);
 }
 
 void Embaralhar_Baralho(Lista_de_Cartas* lista_de_cartas){

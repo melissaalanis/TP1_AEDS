@@ -34,9 +34,10 @@ int main() {
         int num_tableau, num_base, qtd, num_tableau_saida, num_tableau_chegada; //sera usado no switch case
         Carregar_Baralho_Aleatorio(&mesa);
         Preparar_Tableau(&mesa);
-        //Exibir_Mesa(&mesa);
+        
 
         while(continua_jogo == True){
+            Exibir_Mesa(&mesa);
             printf("JOGADAS POSSÍVEIS\n1) Comprar Carta (CC)\n2) Mover do Descarte para as bases (DB)\n3) Mover do descarte para o tableau (DT)\n4) Mover do tableau para as bases (TB)\n5) Mover das bases para o tableau (BT)\n6) Mover entre colunas do Tableau (TT)\n7) Sair\nDigite o numero de acordo com a operacao desejada: ");
             scanf("%d", jogada);
 
@@ -82,8 +83,8 @@ int main() {
                 break;
             }
         }
+        //system("clear");
         if(Verificar_Vitoria(&mesa)){
-            //system("clear");
             printf("Parabens, %s! Voce venceu ;)", nome_jogador);
         }
     }
