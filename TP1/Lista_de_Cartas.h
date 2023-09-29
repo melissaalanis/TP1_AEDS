@@ -19,3 +19,4 @@ void Adicionar_Carta_ao_Topo(Lista_de_Cartas* lista_de_cartas, Carta* carta);
 int Retirar_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas);
 void Embaralhar_Baralho(Lista_de_Cartas* lista_de_cartas);
 void Exibir_Lista_Cartas(Lista_de_Cartas *lista_de_cartas, char tipo_exibicao);
+void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lista_de_Cartas* lista_de_cartas_receptora);

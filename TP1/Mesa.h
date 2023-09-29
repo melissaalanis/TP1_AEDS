@@ -15,7 +15,7 @@ int Verificar_Vitoria(Mesa* mesa);
 void Comprar_Carta(Mesa* mesa);
 void Mover_Descarte_Base(Mesa* mesa, int base);
 void Mover_Descarte_Tableau(Mesa* mesa, int tableau);
-void Mover_Tableau_Base(Mesa* mesa, int base);
+void Mover_Tableau_Base(Mesa* mesa, int tableau, int base);
 void Mover_no_Tableau(Mesa* mesa, int qtd, int tableau_chegada, int tableau_saida);
 void Mover_Bases_Tableau(Mesa * mesa, int base, int tableau);
 void Exibir_Mesa(Mesa* mesa);

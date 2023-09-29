@@ -55,13 +55,11 @@ int Verifica_Sequencia_Alternada(Carta* carta1, Carta* carta2){ //TABLEAU
 
 void Exibir_Carta(Carta* carta){
     if (carta -> valor == 0){
-        printf(" Celula vazia ");
-    }
-
-    if (carta -> posicao == True){
+        printf("[   ]");
+    }else if (carta -> posicao == True){
         printf("[%d %c]", carta->valor, carta->naipe);    
     } else {
-        printf("[  ]");
+        printf("[%d %c %d]", carta->valor, carta->naipe, carta->posicao);
     }
 }
 

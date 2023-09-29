@@ -32,9 +32,11 @@ int Retornar_Tamanho_Lista(Lista_de_Cartas* lista_de_cartas){
 
 Carta Retorna_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
     // se a lista estiver estiver vazia a função não tem retorno
-    if (!Verifica_Lista_Vazia){
-        return lista_de_cartas -> ultimo -> carta;
-    }
+    //if (!Verifica_Lista_Vazia(lista_de_cartas)){
+    Carta carta = lista_de_cartas -> ultimo -> carta;
+    Exibir_Carta(&(lista_de_cartas -> ultimo -> carta));
+    return lista_de_cartas -> ultimo -> carta;
+    
 }
 
 
@@ -45,9 +47,9 @@ Carta Retorna_Carta_Posicao(Lista_de_Cartas* lista_de_cartas, int posicaoCarta){
         return lista_de_cartas -> primeiro -> prox -> carta;
     }
 
-    else if(posicaoCarta == 0){
-        return lista_de_cartas -> ultimo -> carta;
-    }
+    /*else if(posicaoCarta == 0){
+        return lista_de_cartas -> ultimo->carta; O PROBLEMA TA AQUI!!!#$%$#
+    }*/
 
     else{
     int tam = Retornar_Tamanho_Lista(lista_de_cartas);
@@ -91,28 +93,38 @@ int Retirar_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
 
 void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lista_de_Cartas* lista_de_cartas_receptora){
     
-    if (Verifica_Lista_Vazia(lista_de_cartas)){ // Verifica se a lista doadora está vazia
+   /* if (Verifica_Lista_Vazia(lista_de_cartas)){ // Verifica se a lista doadora está vazia
         printf("Operacao invalida");
     }
 
     if (Retornar_Tamanho_Lista(lista_de_cartas) <= quantidadeCarta){ // Verifica se a lista doadora possui cartas suficientes a serem retiradas
         printf("Operacao invalida 1");
-    }
+    }*/
     
     int tamanho = Retornar_Tamanho_Lista(lista_de_cartas);
     int novo_tamanho = tamanho - quantidadeCarta;    // Analisa a quantidade de celulas que serao percorridas
 
+    Carta carta_aux = Retorna_Carta_Posicao(lista_de_cartas, quantidadeCarta-1);
     Celula* auxiliar = lista_de_cartas -> primeiro -> prox; // Comeca na primeira celula com conteudo
     Celula* auxiliar2 = lista_de_cartas -> primeiro; //Comeca da celula cabeça
 
     for( int i=0;i<novo_tamanho; i++){
         auxiliar2 = auxiliar2 -> prox; // Recebe o endereco de memoria da celula que se tornará a ultima
-        auxiliar = auxiliar -> prox; // Recebe o endereco de memoria da celula que ira se tornar a primeira quando houver o rompimento
-    }
-
+        auxiliar = auxiliar -> prox; // Recebe o endereco de memoria da celula que ira se tornar a primeira quando houver o rompimento}
+    
+    }/*while ((auxiliar -> carta) != carta_aux){
+        auxiliar = auxiliar -> prox;
+        auxiliar2 = auxiliar2 -> prox;
+    }*/
+    
+    
+    lista_de_cartas_receptora -> ultimo -> prox = auxiliar; // A antiga ultima posiçao da lista receptora passa a apontar para as celula transplantada
+    lista_de_cartas_receptora -> ultimo = lista_de_cartas -> ultimo;
     lista_de_cartas -> ultimo = auxiliar2; // A ultima celula é redefinida para a ultima celula que ficou apos a retirada
     lista_de_cartas -> ultimo -> prox = NULL; // Definindo que a lista de cartas tenha um final ( já que o seu ultimo foi retirado)
-    lista_de_cartas_receptora -> ultimo -> prox = auxiliar; // A antiga ultima posiçao da lista receptora passa a apontar para as celula transplantada
+
+    printf("%d %c", lista_de_cartas->ultimo->carta.valor, lista_de_cartas->ultimo->carta.valor);
+    printf("%d %c", lista_de_cartas_receptora -> ultimo -> carta.valor, lista_de_cartas_receptora -> ultimo -> carta.naipe);
 }
 
 void Embaralhar_Baralho(Lista_de_Cartas* lista_de_cartas){
@@ -148,12 +160,9 @@ void Embaralhar_Baralho(Lista_de_Cartas* lista_de_cartas){
 }
 
 void Exibir_Lista_Cartas(Lista_de_Cartas *lista_de_cartas, char tipo_exibicao){ // RODAR FUNCAO DPS
-    if (Verifica_Lista_Vazia(lista_de_cartas) == 1){
-        printf("LISTA VAZIA\n");
-    }
-    else if(tipo_exibicao == 't'){
+    if(tipo_exibicao == 't'){
             Carta carta_aux = lista_de_cartas -> ultimo -> carta;
-            printf("%d %c\n", carta_aux.valor, carta_aux.naipe);
+            Exibir_Carta(&carta_aux);
     }
     else if (tipo_exibicao == 'l'){
         Celula *aux = lista_de_cartas -> primeiro -> prox;
