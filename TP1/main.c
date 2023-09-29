@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-//#include "Carta.h"
-//#include "Lista_de_Cartas.h"
+#include <string.h> 
 #include "Mesa.h"
 
 /*
@@ -10,103 +8,87 @@
     ESPADA E PAUS - NAIPES PRETOS
 */
 
-void Preenher_Baralho_Iterativo(Carta Baralho[53]){ // Inicializa o baralho que será usado no modo iterativo
-    int valor, naipe;
-    char naipes[4] = {'C', 'O', 'P', 'E'}; // C = copas, E = espada, P = paus, O = ouro 
-    Inicializa_Carta(&Baralho[0], 0, 'V'); // Tornando a carta vazia "NULL", padronizamos que terá uma carta com o valor 0, ela será carta nula, por isso o vetor tem 53 posições
-
-    for (int i = 1; i < 53; i++){
-        valor = (i % 13) + 1; // Como o i%13 vai  gerar numeros de 0 a 12, por isso utilizei o "+1"
-        naipe = naipes[i % 4];
-        Inicializa_Carta(&Baralho[i], valor, naipe);
-    }
-}
-
 int main() {
-    Carta Baralho[53];
     
-    Preenher_Baralho_Iterativo(Baralho);
-   
-    /*for (int i = 0; i < 53; i++){
-        printf("- %d - %d %c %d\n", i, Baralho[i].valor, Baralho[i].naipe, Baralho[i].posicao);
-    } */
- 
-//Testando os returns e a alteração da posição da carta (APAGAR DEPOIS)
-    Lista_de_Cartas lista;
-    Inicializar_Lista_Vazia(&lista);
-    printf("%d\n", Verifica_Lista_Vazia(&lista));
-    Adicionar_Carta_ao_Topo(&lista, &Baralho[1]);
-    Adicionar_Carta_ao_Topo(&lista, &Baralho[2]);
-    Adicionar_Carta_ao_Topo(&lista, &Baralho[3]);
-    Adicionar_Carta_ao_Topo(&lista, &Baralho[4]);
-    Adicionar_Carta_ao_Topo(&lista, &Baralho[5]);
-    
-    Exibir_Lista_Cartas(&lista, 'l');
-    printf("\n");
-    /*
-    Altera_Posicao_Carta(&Baralho[5]);
-    printf("A posicao da carta eh %d\n", Retorna_Posicao_Carta(&Baralho[5]));
-    Altera_Posicao_Carta(&Baralho[5]);
-    printf("A posicao da carta eh %d\n", Retorna_Posicao_Carta(&Baralho[5]));
-    printf("O naipe da carta eh %c\n", Retorna_Naipe_Carta(&Baralho[5]));
-    printf("O valor da carta eh %d", Retorna_Valor_Carta(&Baralho[5]));
-
-    printf("A sequencia de naipe eh %d\n", Verifica_Sequencia_Naipe(&Baralho[0], &Baralho[40]));
-    printf("A sequencia de alternada eh %d\n", Verifica_Sequencia_Alternada(&Baralho[38], &Baralho[37]));
-    
-    Exibir_Carta(&Baralho[1]);
-    Altera_Posicao_Carta(&Baralho[1]);
-    Exibir_Carta(&Baralho[1]);
-    return 0;
-
-
-    Lista_de_Cartas lista;
-    Inicializar_Lista_Vazia(&lista);
-    printf("%d\n", Verifica_Lista_Vazia(&lista));
-    Adicionar_Carta_ao_Topo(&lista, &Baralho[1]);
-    Adicionar_Carta_ao_Topo(&lista, &Baralho[2]);
-    Adicionar_Carta_ao_Topo(&lista, &Baralho[3]);
-    Adicionar_Carta_ao_Topo(&lista, &Baralho[4]);
-    Adicionar_Carta_ao_Topo(&lista, &Baralho[5]);
-    
-
-    //Carta cartinha = Retorna_Carta_Posicao(&lista, 5);
-
-    */Lista_de_Cartas lista2;
-    Inicializar_Lista_Vazia(&lista2);
-    Adicionar_Carta_ao_Topo(&lista2, &Baralho[6]);
-    Adicionar_Carta_ao_Topo(&lista2, &Baralho[7]);
-    Adicionar_Carta_ao_Topo(&lista2, &Baralho[8]);
-    Adicionar_Carta_ao_Topo(&lista2, &Baralho[9]);
-    Exibir_Lista_Cartas(&lista2, 'l');
-    Transferir_Carta(&lista, 2 , &lista2);
-    Exibir_Lista_Cartas(&lista2, 'l');
-    printf("\n");
-    Retorna_Carta_do_Topo(&lista);
-    printf("Lista receptora\n");
-
-    Retorna_Carta_do_Topo(&lista2);
-    printf("\n");
-    /* printf("%d\n", Retornar_Tamanho_Lista(&lista2));
-
-    printf("\n LISTA 2 \n");
-    Exibir_Lista_Cartas(&lista2, 'l'); // T para topo e L para lista inteira*/
-    
-    //
-    
-     // printf("A carta dessa posicao eh %d %c %d\n ", cartinha.valor, cartinha.naipe, cartinha.posicao);
-    /*printf("\n BASE \n");
-    Exibir_Lista_Cartas(&lista, 'l'); // T para topo e L para lista inteira
-    printf("\n TEABLAU \n");
-    Embaralhar_Baralho(&lista);
-    Exibir_Lista_Cartas(&lista, 'l');
-*/
     Mesa mesa;
     Inicializar_Mesa(&mesa);
-    Carregar_Baralho_Aleatorio(&mesa);
-    //Preparar_Tableau(&mesa);
-    //Exibir_Mesa(&mesa);
+   
+    int formato_jogo;
 
-    //printf("%d\n", Retornar_Tamanho_Lista(&lista));
+    printf("PACIENCIA\n");
+    printf("Pagina Inicial\n");
+
+    char nome_jogador[30];
+    printf("Qual o nome do jogador(a)? ");
+    scanf("%s", nome_jogador);
+    //system("clear");
+    
+    printf("Bem-vindo(a), %s! :)\n", nome_jogador);
+    printf("\nMENU:\n1) Modo Interativo\n2) Utilizando Arquivo\n");
+    printf("\nCom base nos numeros do menu acima escolha o formato do jogo:\n");
+    scanf("%d", &formato_jogo);
+    
+    if(formato_jogo == 1){
+        int jogada;
+        int continua_jogo = True; //Será usado no while True
+        int num_tableau, num_base, qtd, num_tableau_saida, num_tableau_chegada; //sera usado no switch case
+        Carregar_Baralho_Aleatorio(&mesa);
+        Preparar_Tableau(&mesa);
+        //Exibir_Mesa(&mesa);
+
+        while(continua_jogo == True){
+            printf("JOGADAS POSSÍVEIS\n1) Comprar Carta (CC)\n2) Mover do Descarte para as bases (DB)\n3) Mover do descarte para o tableau (DT)\n4) Mover do tableau para as bases (TB)\n5) Mover das bases para o tableau (BT)\n6) Mover entre colunas do Tableau (TT)\n7) Sair\nDigite o numero de acordo com a operacao desejada: ");
+            scanf("%d", jogada);
+
+            switch (jogada){
+            case 1:
+                Comprar_Carta(&mesa);
+                break;
+            case 2:
+                Mover_Descarte_Base(&mesa);
+                break;
+            case 3:
+                printf("Digite o numero do tableau para o qual a carta será movida:\n");
+                scanf("%d", &num_tableau);
+                Mover_Descarte_Tableau(&mesa, num_tableau);
+                break;
+            case 4:
+                printf("Digite o numero do tableau de onde a carta será movida:\n");
+                scanf("%d", &num_tableau);
+                Mover_Tableau_Base(&mesa, num_tableau);
+                break;
+            case 5:
+                printf("Digite o numero da base de onde a carta será movida:\n");
+                scanf("%d", &num_base);
+                printf("Digite o numero do tableau para o qual a carta será movida:\n");
+                scanf("%d", &num_tableau);
+                Mover_Bases_Tableau(&mesa, num_base, num_tableau);
+                break;
+            case 6:
+                printf("Digite a quantidade de cartas que sera movida:");
+                scanf("%d", &qtd);
+                printf("Digite o numero do tableau para o qual a carta será movida:\n");
+                scanf("%d", &num_tableau_chegada);
+                printf("Digite o numero do tableau de onde a carta será movida:\n");
+                scanf("%d", &num_tableau_saida);
+                Mover_no_Tableau(&mesa, qtd, num_tableau_chegada, num_tableau_saida);
+                break;
+            case 7:
+                //system("clear");
+                printf("Jogo finalizado! :(");
+                continua_jogo = False;
+            default:
+                printf("Opção inválida! Tente novamente!\n");
+                break;
+            }
+        }
+        if(Verificar_Vitoria(&mesa)){
+            //system("clear");
+            printf("Parabens, %s! Voce venceu ;)", nome_jogador);
+        }
+    }
+    
+    
+
     return 0;
 }

@@ -31,7 +31,7 @@ void Altera_Posicao_Carta(Carta* carta){ // Função q altera a posição da car
 }
 
 int Verifica_Sequencia_Naipe(Carta* carta1, Carta* carta2){ // Verifica se as cartas possuem o mesmo naipe e se formam uma sequencia crescente
-    if(carta1 -> naipe == carta2 -> naipe){
+    if(carta1 -> naipe == carta2 -> naipe ||carta1 -> naipe == 'V' ){ //Verifica se os naipes são iguais ou se estou tentando colocar meu As em uma posição vazia
         if(carta2 -> valor == carta1 -> valor + 1){ //
             return True;
         }
@@ -46,7 +46,7 @@ int Verifica_Sequencia_Alternada(Carta* carta1, Carta* carta2){ //TABLEAU
     }
 
     if((carta1 -> valor) == (carta2 -> valor + 1)){ //Verifica se a carta 1 é exatamente uma unidade maior que a segunda
-         if (((carta1 -> naipe == 'C'||'O') && (carta2 -> naipe == 'E'||'P')) || ((carta1 -> naipe == 'E'||'P' ) && (carta2 -> naipe == 'C'||'O')) ) {// Verifica se o naipe pode ser sobreposto pelo outro naipe (Cores)
+         if (((carta1 -> naipe == 'C'|| carta2 -> naipe == 'O') && (carta2 -> naipe == 'E'|| carta2 -> naipe == 'P')) || ((carta1 -> naipe == 'E'|| carta2 -> naipe == 'P' ) && (carta2 -> naipe == 'C'|| carta2 -> naipe =='O')) ) {// Verifica se o naipe pode ser sobreposto pelo outro naipe (Cores)
             return True;
          }
     }
@@ -55,11 +55,11 @@ int Verifica_Sequencia_Alternada(Carta* carta1, Carta* carta2){ //TABLEAU
 
 void Exibir_Carta(Carta* carta){
     if (carta -> valor == 0){
-        printf("[   ]");
+        printf("[    ]"); //Lista vazia
     }else if (carta -> posicao == True){
         printf("[%d %c]", carta->valor, carta->naipe);    
     } else {
-        printf("[%d %c %d]", carta->valor, carta->naipe, carta->posicao);
+        printf("[ -- ]"); //Carta virada para baixo
     }
 }
 

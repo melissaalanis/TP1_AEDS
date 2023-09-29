@@ -28,8 +28,7 @@ void Inicializar_Mesa(Mesa* mesa){ // Inicializa a nossa mesa e as nossas listas
 
 void Carregar_Baralho_Aleatorio(Mesa* mesa){
     int valor, naipe;
-    char naipes[4] = {'C', 'O', 'P', 'E'}; // C = copas, E = espada, P = paus, O = ouro 
-    //Inicializa_Carta(&Baralho[0], 0, 'V'); // Tornando a carta vazia "NULL", padronizamos que terá uma carta com o valor 0, ela será carta nula, por isso o vetor tem 53 posições
+    char naipes[4] = {'C', 'O', 'P', 'E'}; // C = copas, E = espada, P = paus, O = ouro
 
     for (int i = 0; i < 52; i++){
         Carta* carta_aux = (Carta*)malloc(sizeof(Carta));
@@ -39,7 +38,7 @@ void Carregar_Baralho_Aleatorio(Mesa* mesa){
         Adicionar_Carta_ao_Topo(&(mesa -> Baralho), carta_aux);
     }
 
-    Embaralhar_Baralho(&(mesa -> Baralho)); //Embaralha meu baralho*/
+    Embaralhar_Baralho(&(mesa -> Baralho)); //Embaralha meu baralho
 }
 
 
@@ -69,23 +68,10 @@ void Comprar_Carta(Mesa* mesa){
 
 
 void Preparar_Tableau(Mesa* mesa){
-    Carta carta_aux;
-    for (int i = 0; i < 7; i++){ //O for repete 7 vezes, uma para cada lista do tablau
-        Transferir_Carta(&(mesa -> Baralho), i+1, &(mesa -> Tableau[i])); //Transferindo minhas cartas do baralho para as listas do tablau, 
-        //de acordo com as especificações de tamanho    
-        Exibir_Lista_Cartas(&(mesa -> Tableau[i]), 'l');
-        printf("\n");
-        carta_aux = Retorna_Carta_Posicao(&(mesa -> Tableau[i]), 0);
-        //printf("%d", Retornar_Tamanho_Lista(&(mesa -> Tableau[i])));
-        Exibir_Carta(&(carta_aux));
-        printf("\n");
-        //int aux = Retorna_Posicao_Carta(&carta_aux);
-        //printf("%d\n", carta_aux.posicao);
-        //Altera_Posicao_Carta(&carta_aux); //deixando apenas o topo da minha lista para cima
-        //printf("%d\n", carta_aux.posicao);
-        //printf("%d\n", Retorna_Posicao_Carta(&carta_aux));
-        //Exibir_Carta(&carta_aux);
-        //printf("\n");
+    for (int i = 0; i < 7; i++){
+        Transferir_Carta(&(mesa->Baralho), i + 1, &(mesa->Tableau[i]));
+        Carta carta_topo = Retorna_Carta_do_Topo(&(mesa->Tableau[i]));
+        Altera_Posicao_Carta(&carta_topo);
     }
 }
 
@@ -108,13 +94,21 @@ int Verificar_Vitoria(Mesa * mesa){
 }
 
 
-void Mover_Descarte_Base(Mesa* mesa, int base){
-    Carta carta_aux_descarte = Retorna_Carta_do_Topo(&(mesa->Descarte)); //Pegando a carta do topo do descarte
-    Carta carta_aux_base = Retorna_Carta_do_Topo(&(mesa->Base[base-1])); //Pegando a carta do topo da base 
-    //(usamos base-1 porque recebemos um valor de 1 a 4, mas o valor é de 0 a 3)
+void Mover_Descarte_Base(Mesa* mesa){
+    int i; 
+    Carta carta_aux_Descarte = Retorna_Carta_do_Topo(&(mesa->Descarte)); //Pegando a carta do topo do descarte
+    Carta carta_aux_Base;
     
-    if (Verifica_Sequencia_Naipe(&(carta_aux_descarte), &(carta_aux_base))){ //Verifica se o movimento é válido
-        Transferir_Carta(&(mesa -> Descarte), 1, &(mesa -> Base[base-1]));
+    for (i = 0; i < 4; i++){
+        carta_aux_Base = Retorna_Carta_do_Topo(&(mesa->Base[i])); //Pegando a carta do topo das Bases
+        if (Retorna_Naipe_Carta(&carta_aux_Descarte) == Retorna_Naipe_Carta(&carta_aux_Base) || Retorna_Naipe_Carta(&carta_aux_Base) == 'V' && Retorna_Valor_Carta(&carta_aux_Base) == 1){ 
+            //Descutir esse if
+            //Verifica se é a base correspondente ou se a base esta vazia
+            break;
+        }
+    }
+    if (Verifica_Sequencia_Naipe(&(carta_aux_Descarte), &(carta_aux_Base))){ //Verifica se o movimento é válido
+        Transferir_Carta(&(mesa -> Descarte), 1, &(mesa -> Base[i-1]));
     } else {
         printf("Movimento Inválido");
     }
@@ -137,13 +131,21 @@ void Mover_Descarte_Tableau(Mesa* mesa, int tableau){
     mesa -> pontuacao += 5;
 }
 
-void Mover_Tableau_Base(Mesa* mesa, int tableau, int base){
+void Mover_Tableau_Base(Mesa* mesa, int tableau){
+    int i; //Base para a qual a carta será movida
     Carta carta_aux_Tableau = Retorna_Carta_do_Topo(&(mesa->Descarte)); //Pegando a carta do topo do Tableau
-    Carta carta_aux_Base = Retorna_Carta_do_Topo(&(mesa->Base[base-1])); //Pegando a carta do topo da base 
-    //(usamos base-1 porque recebemos um valor de 1 a 4, mas o valor é de 0 a 3)
-    
+    Carta carta_aux_Base;
+    for (i = 0; i < 4; i++){
+        carta_aux_Base = Retorna_Carta_do_Topo(&(mesa->Base[i])); //Pegando a carta do topo das Bases
+        if (Retorna_Naipe_Carta(&carta_aux_Tableau) == Retorna_Naipe_Carta(&carta_aux_Base) || Retorna_Naipe_Carta(&carta_aux_Base) == 'V' && Retorna_Valor_Carta(&carta_aux_Base) == 1){ 
+            //Descutir esse if
+            //Verifica se é a base correspondente ou se a base esta vazia
+            break;
+        }
+    }
     if (Verifica_Sequencia_Naipe(&(carta_aux_Tableau), &(carta_aux_Base))){ //Verifica se o movimento é válido
-        Transferir_Carta(&(mesa -> Tableau[tableau-1]), 1, &(mesa -> Base[base-1]));
+        Transferir_Carta(&(mesa -> Tableau[tableau-1]), 1, &(mesa -> Base[i-1]));
+        //preciso virar a carta depois que ela é movida e mudar a pontuação !!!!!!!!
     } else {
         printf("Movimento Inválido");
     }
@@ -181,13 +183,14 @@ void Mover_no_Tableau(Mesa* mesa, int qtd, int tableau_chegada, int tableau_said
 }
 
 void Mover_Bases_Tableau(Mesa * mesa, int base, int tableau){ // Move uma carta de uma das bases para o Tableau
-    Carta carta_aux_base = Retorna_Carta_do_Topo(&(mesa->Base[base-1])); //Pegando a carta do topo do descarte
+    Carta carta_aux_base = Retorna_Carta_do_Topo(&(mesa->Base[base])); //Pegando a carta do topo do descarte
+    //Não tem o base-1 pq o valor das bases vai de 0 a 3, segundo o arquivo teste 
     Carta carta_aux_tableau = Retorna_Carta_do_Topo(&(mesa->Tableau[tableau-1])); //Pegando a carta do topo do tableau 
     //(usamos tableau-1 porque recebemos um valor de 1 a 7, mas o valor é de 0 a 6)
     
     if (Verifica_Sequencia_Alternada(&(carta_aux_base), &(carta_aux_tableau))){ 
         // # RELEMBRANDO: A funcao acima verifica se a carta 1 é exatamente uma unidade maior que a segunda
-        Transferir_Carta(&(mesa -> Base[base-1]), 1, &(mesa -> Tableau[tableau-1]));
+        Transferir_Carta(&(mesa -> Base[base]), 1, &(mesa -> Tableau[tableau-1]));
         mesa -> pontuacao -= 15; 
         if (mesa -> pontuacao < 0){ // Se a pontuacao ficar negativa, então ela é zerada.
             mesa -> pontuacao = 0;
@@ -206,9 +209,12 @@ void Exibir_Mesa(Mesa* mesa){
     
     printf("\n");
     printf("TABLEAU:\n");
-    //for(int i=0; i < 7 ; i++){
-    Exibir_Lista_Cartas(&(mesa -> Tableau[1]), 'l');
-    /*Exibir_Lista_Cartas(&(mesa-> Baralho), 't');
-    
-    Exibir_Lista_Cartas(&(mesa-> Descarte), 't');*/
+    for(int i=0; i < 7 ; i++){
+        Exibir_Lista_Cartas(&(mesa -> Tableau[i]), 'l');
+        printf("\n");
+    }
+    printf("BARALHO | DESCARTE\n");
+    Exibir_Lista_Cartas(&(mesa-> Baralho), 't');
+    printf("    ");
+    Exibir_Lista_Cartas(&(mesa-> Descarte), 't');
 }
