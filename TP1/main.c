@@ -21,7 +21,7 @@ int main() {
     char nome_jogador[30];
     printf("Qual o nome do jogador(a)? ");
     scanf("%s", nome_jogador);
-    //system("clear");
+    system("clear");
     
     printf("Bem-vindo(a), %s! :)\n", nome_jogador);
     printf("\nMENU:\n1) Modo Interativo\n2) Utilizando Arquivo\n");
@@ -75,7 +75,7 @@ int main() {
                 Mover_no_Tableau(&mesa, qtd, num_tableau_chegada, num_tableau_saida);
                 break;
             case 7:
-                //system("clear");
+                system("clear");
                 printf("Jogo finalizado! :(\n");
                 continua_jogo = False;
                 break;
@@ -84,7 +84,7 @@ int main() {
                 break;
             }
         }
-        //system("clear");
+        system("clear");
         if(Verificar_Vitoria(&mesa)){
             printf("Parabens, %s! Voce venceu ;)", nome_jogador);
         }

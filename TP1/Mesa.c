@@ -115,7 +115,7 @@ void Mover_Descarte_Base(Mesa* mesa){
         } 
     }
     if(contador == 0){
-        printf("Movimento Inválido");
+        printf("MOVIMENTO INVALIDO\n");
     }
     mesa -> pontuacao += 10;
 }
@@ -126,11 +126,14 @@ void Mover_Descarte_Tableau(Mesa* mesa, int tableau){
     //(usamos tableau-1 porque recebemos um valor de 1 a Qtd_Tableau, mas o valor é de 0 a 6)
     
     if (Verifica_Sequencia_Alternada(carta_aux_tableau, carta_aux_descarte)){ 
+        if(Retorna_Valor_Carta(carta_aux_tableau) == 0){
+            Retirar_Carta_do_Topo(&(mesa->Tableau[tableau - 1]));
+        }
         // # RELEMBRANDO: A funcao acima verifica se a carta 1 é exatamente uma unidade maior que a segunda
         Transferir_Carta(&(mesa -> Descarte), 1, &(mesa -> Tableau[tableau-1]));
         mesa -> pontuacao += 5;
     } else {
-        printf("Movimento Inválido");
+        printf("MOVIMENTO INVALIDO\n");
     }
 
     
@@ -162,36 +165,44 @@ void Mover_Tableau_Base(Mesa* mesa, int tableau){
         } 
     }
     if(contador == 0){
-        printf("Movimento Inválido");
+        printf("MOVIMENTO INVALIDO\n");
     }
     
 }   
 
 void Mover_no_Tableau(Mesa* mesa, int qtd, int tableau_chegada, int tableau_saida){
-    Carta* carta_aux_saida = Retorna_Carta_Posicao(&(mesa->Tableau[tableau_saida - 1]), qtd); //Pegando a carta referência do bloco de saída
+    Carta* carta_aux_saida = Retorna_Carta_Posicao(&(mesa->Tableau[tableau_saida - 1]), qtd-1); //Pegando a carta referência do bloco de saída
     //(a carta que irá definir se o movimento é válido)
-    Exibir_Carta(carta_aux_saida);
-    Carta* carta_aux_chegada = Retorna_Carta_do_Topo(&(mesa->Tableau[tableau_chegada- 1])); //Pegando a primeira carta do tableu que receberá o novo bloco
-    //(usamos tableu-1 porque recebemos um valor de 1 a Qtd_Tableau, mas o valor é de 0 a 6)
-    
-    if (Verifica_Sequencia_Alternada(carta_aux_chegada, carta_aux_saida)){ //Verifica se o movimento é válido
-        Transferir_Carta(&(mesa->Tableau[tableau_saida - 1]), qtd, &(mesa->Tableau[tableau_chegada - 1]));
+    if(Retorna_Posicao_Carta(carta_aux_saida) == True){
+        Carta* carta_aux_chegada = Retorna_Carta_do_Topo(&(mesa->Tableau[tableau_chegada- 1])); //Pegando a primeira carta do tableu que receberá o novo bloco
+        //Exibir_Carta(carta_aux_chegada);
+        //(usamos tableu-1 porque recebemos um valor de 1 a Qtd_Tableau, mas o valor é de 0 a 6)
         
-        //Como foi movido n cartas, o meu topo muda e será necessário alterar minha nova carta do topo 
-        //(revelar a carta do Tableau, se minha lista não for vazia, se for adicionar minha carta nula a minha lista)  
-        
-        if (Verifica_Lista_Vazia(&(mesa->Tableau[tableau_saida - 1]))){
-            Carta* carta_vazia = (Carta*)malloc(sizeof(Carta));
-            Inicializa_Carta(carta_vazia, 0, 'V');
-            Adicionar_Carta_ao_Topo(&(mesa->Tableau[tableau_saida - 1]), (carta_vazia)); //Adiciona a carta nula
-        } else {      
-            Carta* novo_topo = Retorna_Carta_do_Topo(&(mesa->Tableau[tableau_saida- 1])); 
-            Altera_Posicao_Carta(novo_topo); //Revelando a carta do topo
-            mesa -> pontuacao += 5;
+        if (Verifica_Sequencia_Alternada(carta_aux_chegada, carta_aux_saida)){ //Verifica se o movimento é válido
+            if(Retorna_Valor_Carta(carta_aux_chegada) == 0){
+                Retirar_Carta_do_Topo(&(mesa->Tableau[tableau_chegada - 1]));
+            }
+
+            Transferir_Carta(&(mesa->Tableau[tableau_saida - 1]), qtd, &(mesa->Tableau[tableau_chegada - 1]));
+            
+            //Como foi movido n cartas, o meu topo muda e será necessário alterar minha nova carta do topo 
+            //(revelar a carta do Tableau, se minha lista não for vazia, se for adicionar minha carta nula a minha lista)  
+            
+            if (Verifica_Lista_Vazia(&(mesa->Tableau[tableau_saida - 1]))){
+                Carta* carta_vazia = (Carta*)malloc(sizeof(Carta));
+                Inicializa_Carta(carta_vazia, 0, 'V');
+                Adicionar_Carta_ao_Topo(&(mesa->Tableau[tableau_saida - 1]), (carta_vazia)); //Adiciona a carta nula
+            } else {      
+                Carta* novo_topo = Retorna_Carta_do_Topo(&(mesa->Tableau[tableau_saida- 1])); 
+                Altera_Posicao_Carta(novo_topo); //Revelando a carta do topo
+                mesa -> pontuacao += 5;
+            }
+            
+        } else {
+            printf("MOVIMENTO INVALIDO\n");
         }
-        
     } else {
-        printf("Movimento Inválido");
+        printf("MOVIMENTO INVALIDO! REVELE ANTES TODAS AS CARTAS QUE DESEJA MOVER!\n");
     }
     
 }
@@ -203,6 +214,9 @@ void Mover_Bases_Tableau(Mesa * mesa, int base, int tableau){ // Move uma carta 
     //(usamos tableau-1 porque recebemos um valor de 1 a Qtd_Tableau, mas o valor é de 0 a 6)
     
     if (Verifica_Sequencia_Alternada(carta_aux_tableau, carta_aux_base)){ 
+        if(Retorna_Valor_Carta(carta_aux_tableau) == 0){
+            Retirar_Carta_do_Topo(&(mesa->Tableau[tableau - 1]));
+        }
         // # RELEMBRANDO: A funcao acima verifica se a carta 1 é exatamente uma unidade maior que a segunda
         Transferir_Carta(&(mesa -> Base[base-1]), 1, &(mesa -> Tableau[tableau-1]));
         mesa -> pontuacao -= 15; 
@@ -210,7 +224,7 @@ void Mover_Bases_Tableau(Mesa * mesa, int base, int tableau){ // Move uma carta 
             mesa -> pontuacao = 0;
         }
     } else {
-        printf("Movimento Inválido");
+        printf("MOVIMENTO INVALIDO");
     }
 
 }

@@ -67,6 +67,7 @@ void Exibir_Carta(Carta* carta){
         printf("[%d  %c] ", carta->valor, carta->naipe);  
     } else {
         printf("[%d  %c] ", carta->valor, carta->naipe);  
+        //printf("[ -- ]");
     }
 }
 
