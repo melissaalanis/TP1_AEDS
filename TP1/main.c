@@ -39,7 +39,7 @@ int main() {
         while(continua_jogo == True){
             Exibir_Mesa(&mesa);
             printf("JOGADAS POSSÍVEIS\n1) Comprar Carta (CC)\n2) Mover do Descarte para as bases (DB)\n3) Mover do descarte para o tableau (DT)\n4) Mover do tableau para as bases (TB)\n5) Mover das bases para o tableau (BT)\n6) Mover entre colunas do Tableau (TT)\n7) Sair\nDigite o numero de acordo com a operacao desejada: ");
-            scanf("%d", jogada);
+            scanf("%d", &jogada);
 
             switch (jogada){
             case 1:
@@ -77,16 +77,16 @@ int main() {
             case 7:
                 //system("clear");
                 printf("Jogo finalizado! :(");
-                continua_jogo = False;
+                //continua_jogo = False;
             default:
                 printf("Opção inválida! Tente novamente!\n");
                 break;
             }
         }
         //system("clear");
-        if(Verificar_Vitoria(&mesa)){
-            printf("Parabens, %s! Voce venceu ;)", nome_jogador);
-        }
+        //if(Verificar_Vitoria(&mesa)){
+          //  printf("Parabens, %s! Voce venceu ;)", nome_jogador);
+       // }
     }
     
     

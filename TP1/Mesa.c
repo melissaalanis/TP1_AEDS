@@ -41,10 +41,11 @@ void Carregar_Baralho_Aleatorio(Mesa* mesa){
     Embaralhar_Baralho(&(mesa -> Baralho)); //Embaralha meu baralho
 }
 
-
+/*
 void Comprar_Carta(Mesa* mesa){
     int tamanho_Descarte = Retornar_Tamanho_Lista(&(mesa -> Descarte));  // Retorna o tamanho da lista Descarte    
     int tamanho_Baralho = Retornar_Tamanho_Lista(&(mesa -> Baralho)); // Retorna o tamanho da lista Baralho
+    
     Carta* auxiliar = Retorna_Carta_do_Topo (&(mesa -> Baralho));   
     Carta* auxiliar_Descarte = Retorna_Carta_do_Topo (&(mesa -> Descarte));
 
@@ -64,6 +65,34 @@ void Comprar_Carta(Mesa* mesa){
     Transferir_Carta(&(mesa -> Baralho), 1 , &(mesa -> Descarte));  
     Altera_Posicao_Carta(auxiliar_Descarte);
     
+}*/
+
+void Comprar_Carta(Mesa* mesa){ 
+    Exibir_Lista_Cartas(&mesa -> Baralho, 'l');
+    int tamanho_Descarte = Retornar_Tamanho_Lista(&(mesa -> Descarte));  // Retorna o tamanho da lista Descarte 
+       
+    printf("okay");
+    int tamanho_Baralho = Retornar_Tamanho_Lista(&(mesa -> Baralho)); // Retorna o tamanho da lista Baralho
+    
+    Carta* auxiliar = Retorna_Carta_do_Topo(&(mesa -> Baralho));   
+    Carta* auxiliar_Descarte = Retorna_Carta_do_Topo(&(mesa -> Descarte));
+
+    if (tamanho_Baralho == 0){ // Verifica se o tamanho do Baralho é 0, se for, iremos passar todas as cartas do descarte para o barallho, virando-as para 0
+
+        mesa -> pontuacao -= 50;
+        if (mesa -> pontuacao < 0){
+            mesa -> pontuacao = 0;
+        }
+        
+        for (int i=0; i<tamanho_Descarte; i++){ 
+            auxiliar_Descarte = Retorna_Carta_do_Topo(&mesa-> Descarte);
+            Transferir_Carta(&(mesa -> Descarte), 1 ,(&mesa -> Baralho)); // Tranferi carta por carta do descarte para o Baralho
+            Altera_Posicao_Carta(auxiliar); // Enquanto vamos transferindo, vamos virando ela para 0 (Ja que todas as cartas que estavam no Descarte estavam na posicao 1);
+        }
+    }
+
+    Transferir_Carta(&(mesa -> Baralho), 1 , &(mesa -> Descarte));  
+    Altera_Posicao_Carta(auxiliar_Descarte);
 }
 
 

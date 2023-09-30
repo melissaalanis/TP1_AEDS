@@ -54,12 +54,12 @@ int Verifica_Sequencia_Alternada(Carta* carta1, Carta* carta2){ //TABLEAU
 }
 
 void Exibir_Carta(Carta* carta){
-    char naipes[Qtd_Naipes] = {'♣️', '♠️' , '♥️', '♦'};
+    //char naipes[Qtd_Naipes] = {'♣️', '♠️' , '♥️', '♦'};
     if (carta -> valor == 0){
         printf("[    ]"); //Lista vazia
     }else if (carta -> posicao == True){
-        printf("[%d  ", carta->valor);  
-        switch (carta->naipe){
+        printf("[%d  %c]", carta->valor, carta->naipe);  
+        /*switch (carta->naipe){
             case 'P':
                 printf("%c]", naipes[0]); 
                 break;
@@ -72,7 +72,7 @@ void Exibir_Carta(Carta* carta){
             case 'O':
                 printf("%c]", naipes[3]); 
                 break;   
-        }  
+        }*/  
     } else {
         printf("[ -- ]"); //Carta virada para baixo
     }

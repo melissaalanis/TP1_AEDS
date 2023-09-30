@@ -17,15 +17,20 @@ int Verifica_Lista_Vazia(Lista_de_Cartas* lista_de_cartas){ // A função Lista 
 
 
 int Retornar_Tamanho_Lista(Lista_de_Cartas* lista_de_cartas){
-    int tamanho; // Comeca com 1 porque ele nao vai somar a ultima celula;
-    if (Verifica_Lista_Vazia){
-        tamanho=0;
+    
+    int tamanho=1; // Comeca com 1 porque ele nao vai somar a ultima celula;
+    if (Verifica_Lista_Vazia(lista_de_cartas)){
+        return 0;
     }
-    Celula* auxiliar = lista_de_cartas -> primeiro -> prox; //
+    
+    Celula* auxiliar = lista_de_cartas -> primeiro -> prox; 
+    //
     while ( auxiliar != NULL) {
         tamanho += 1;
         auxiliar = auxiliar -> prox;
     }
+    
+    
     return tamanho;
 }
 
