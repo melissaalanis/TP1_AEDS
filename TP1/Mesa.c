@@ -1,6 +1,6 @@
 #include "Mesa.h"
 #include <stdlib.h>
-#include <stdio.h>
+//#include <stdio.h>
 
 void Inicializar_Mesa(Mesa* mesa){ // Inicializa a nossa mesa e as nossas listas vazias
     Inicializar_Lista_Vazia(&(mesa -> Baralho));
@@ -247,4 +247,29 @@ void Exibir_Mesa(Mesa* mesa){
     Exibir_Lista_Cartas(&(mesa-> Baralho), 't');
     printf("    ");
     Exibir_Lista_Cartas(&(mesa-> Descarte), 't');
+}
+void Inicializar_Baralho_Arquivo(Mesa *mesa, FILE *arq){
+    int tamanho_total, tamanho_baralho;
+    int valor;
+    char naipe;
+    //char linha[100];
+    
+    //arq = fopen("arquivo.txt", "r"); // Abre o arquivo para leitura
+
+    if (arq == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+    }
+
+    fscanf(arq, "%d\n", &tamanho_total);
+
+    tamanho_baralho = tamanho_total-28;
+    
+    for (int i = 0; i < tamanho_total; i++){
+        fscanf(arq, "(%d %c) ", &valor, &naipe);
+        Carta* carta_aux = (Carta*)malloc(sizeof(Carta));
+        Inicializa_Carta(carta_aux, valor, naipe);
+        Adicionar_Carta_ao_Topo(&(mesa->Baralho), carta_aux);
+    }
+    Exibir_Lista_Cartas(&(mesa->Baralho), 'l');
+    //fclose(arq); // Fecha o arquivo
 }

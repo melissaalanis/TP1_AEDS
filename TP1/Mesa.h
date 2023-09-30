@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "Lista_de_Cartas.h"
 #define Qtd_Bases 4
 #define Qtd_Tableau 7
@@ -13,6 +14,7 @@ typedef struct {
 
 void Inicializar_Mesa(Mesa* mesa);
 void Carregar_Baralho_Aleatorio(Mesa* mesa);
+void Inicializar_Baralho_Arquivo(Mesa* mesa, FILE* arq);
 void Preparar_Tableau(Mesa* mesa);
 int Verificar_Vitoria(Mesa* mesa);
 void Comprar_Carta(Mesa* mesa);

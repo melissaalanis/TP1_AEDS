@@ -13,7 +13,6 @@ int main() {
     
     Mesa mesa;
     Inicializar_Mesa(&mesa);
-    Carregar_Baralho_Aleatorio(&mesa);
     int formato_jogo;
 
     printf("PACIENCIA\n");
@@ -32,6 +31,7 @@ int main() {
     system("clear");
     
     if(formato_jogo == 1){
+        Carregar_Baralho_Aleatorio(&mesa);
         int jogada;
         int continua_jogo = True; //Será usado no while True
         int num_tableau, num_base, qtd, num_tableau_saida, num_tableau_chegada; //sera usado no switch case
@@ -94,6 +94,28 @@ int main() {
         if(Verificar_Vitoria(&mesa)){
             printf("Parabens, %s! Voce venceu ;)", nome_jogador);
         }
+    } else {
+        printf("PACIENCIA MODO ARQUIVO");
+        
+        FILE *arq;
+        arq = fopen("arquivo.txt", "r");         
+        if (arq == NULL) {
+            printf("Erro ao abrir o arquivo.\n");
+        }
+        
+        Inicializar_Baralho_Arquivo(&mesa, arq);
+
+        Preparar_Tableau(&mesa);
+        Exibir_Mesa(&mesa);
+
+
+
+        char jogada[3];
+
+        while (fscanf(arq, " %s ", jogada) != 'X'){
+        }
+        
+        fclose(arq); // Fecha o arquivo
     }
     
     

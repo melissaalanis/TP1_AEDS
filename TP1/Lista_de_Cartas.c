@@ -131,7 +131,7 @@ void Embaralhar_Baralho(Lista_de_Cartas* lista_de_cartas){
     Carta carta_aux;
     srand(time(NULL));
     for (int i = tamanho-1 ; i > 0; i--){
-        nova_posicao = (rand() % (i)); // gerando uma posição aleatória que vai de 1 ate i
+        nova_posicao = (rand() % (i)); // gerando uma posicao aleatoria que vai de 1 ate i
         carta_aux = Baralho[i];
         Baralho[i] = Baralho[nova_posicao];
         Baralho[nova_posicao] = carta_aux;
