@@ -5,7 +5,6 @@
 void Inicializar_Mesa(Mesa* mesa){ // Inicializa a nossa mesa e as nossas listas vazias
     Inicializar_Lista_Vazia(&(mesa -> Baralho));
     Inicializar_Lista_Vazia(&(mesa -> Descarte));
-
     for(int i=0; i<Qtd_Bases; i++){
         Inicializar_Lista_Vazia(&(mesa -> Base[i]));
         Carta* carta_vazia = (Carta*)malloc(sizeof(Carta));
@@ -27,7 +26,7 @@ void Inicializar_Mesa(Mesa* mesa){ // Inicializa a nossa mesa e as nossas listas
 
 
 void Carregar_Baralho_Aleatorio(Mesa* mesa){
-    int valor, naipe;
+    /*int valor, naipe;
     char naipes[Qtd_Naipes] = {'C', 'O', 'P', 'E'}; // C = copas, E = espada, P = paus, O = ouro
 
     for (int i = 0; i < Tam_Baralho; i++){
@@ -37,16 +36,16 @@ void Carregar_Baralho_Aleatorio(Mesa* mesa){
         Inicializa_Carta(carta_aux, valor, naipe);
         Adicionar_Carta_ao_Topo(&(mesa -> Baralho), carta_aux);
     }
-
-    Embaralhar_Baralho(&(mesa -> Baralho)); //Embaralha meu baralho
+*/
+    //Embaralhar_Baralho(&(mesa -> Baralho)); //Embaralha meu baralho
 }
 
 
-void Comprar_Carta(Mesa* mesa){
+void Comprar_Carta(Mesa* mesa){ 
     int tamanho_Descarte = Retornar_Tamanho_Lista(&(mesa -> Descarte));  // Retorna o tamanho da lista Descarte    
     int tamanho_Baralho = Retornar_Tamanho_Lista(&(mesa -> Baralho)); // Retorna o tamanho da lista Baralho
-    Carta* auxiliar = Retorna_Carta_do_Topo (&(mesa -> Baralho));   
-    Carta* auxiliar_Descarte = Retorna_Carta_do_Topo (&(mesa -> Descarte));
+    Carta* auxiliar = Retorna_Carta_do_Topo(&(mesa -> Baralho));   
+    Carta* auxiliar_Descarte = Retorna_Carta_do_Topo(&(mesa -> Descarte));
 
     if (tamanho_Baralho == 0){ // Verifica se o tamanho do Baralho é 0, se for, iremos passar todas as cartas do descarte para o barallho, virando-as para 0
 
@@ -56,6 +55,7 @@ void Comprar_Carta(Mesa* mesa){
         }
         
         for (int i=0; i<tamanho_Descarte; i++){ 
+            auxiliar_Descarte = Retorna_Carta_do_Topo(&mesa-> Descarte);
             Transferir_Carta(&(mesa -> Descarte), 1 ,(&mesa -> Baralho)); // Tranferi carta por carta do descarte para o Baralho
             Altera_Posicao_Carta(auxiliar); // Enquanto vamos transferindo, vamos virando ela para 0 (Ja que todas as cartas que estavam no Descarte estavam na posicao 1);
         }
@@ -63,15 +63,16 @@ void Comprar_Carta(Mesa* mesa){
 
     Transferir_Carta(&(mesa -> Baralho), 1 , &(mesa -> Descarte));  
     Altera_Posicao_Carta(auxiliar_Descarte);
-    
-}
+} 
 
 
 void Preparar_Tableau(Mesa* mesa){
     for (int i = 0; i < Qtd_Tableau; i++){
-        Transferir_Carta(&(mesa->Baralho), i + 1, &(mesa->Tableau[i]));
-        Carta* carta_topo = Retorna_Carta_do_Topo(&(mesa->Tableau[i]));
-        Altera_Posicao_Carta(carta_topo);
+        printf("Tableau %d\n", i);
+        Exibir_Lista_Cartas(&(mesa->Baralho), 'l');
+        //Transferir_Carta(&(mesa->Baralho), i+1, &(mesa->Tableau[i]));
+        //Carta* carta_topo = Retorna_Carta_do_Topo(&(mesa->Tableau[i]));
+        //Altera_Posicao_Carta(carta_topo);
     }
 }
 
@@ -144,7 +145,7 @@ void Mover_Tableau_Base(Mesa* mesa, int tableau){
         }
     }
     if (Verifica_Sequencia_Naipe(carta_aux_Tableau, carta_aux_Base)){ //Verifica se o movimento é válido
-        Transferir_Carta(&(mesa -> Tableau[tableau-1]), 1, &(mesa -> Base[i-1]));
+        Transferir_Carta(&(mesa -> Tableau[tableau-1]), 1, &(mesa -> Base[i]));
         //preciso virar a carta depois que ela é movida e mudar a pontuação !!!!!!!!
     } else {
         printf("Movimento Inválido");
@@ -160,13 +161,13 @@ void Mover_no_Tableau(Mesa* mesa, int qtd, int tableau_chegada, int tableau_said
     Carta* carta_aux_chegada = Retorna_Carta_do_Topo(&(mesa->Tableau[tableau_chegada- 1])); //Pegando a primeira carta do tableu que receberá o novo bloco
     //(usamos tableu-1 porque recebemos um valor de 1 a Qtd_Tableau, mas o valor é de 0 a 6)
     
-    if (Verifica_Sequencia_Alternada(carta_aux_chegada, carta_aux_saida)){ //Verifica se o movimento é válido
+    if (Verifica_Sequencia_Alternada(carta_aux_saida, carta_aux_chegada)){ //Verifica se o movimento é válido
         Transferir_Carta(&(mesa->Tableau[tableau_saida - 1]), qtd, &(mesa->Tableau[tableau_chegada - 1]));
         
         //Como foi movido n cartas, o meu topo muda e será necessário alterar minha nova carta do topo 
         //(revelar a carta do Tableau, se minha lista não for vazia, se for adicionar minha carta nula a minha lista)  
         
-        if (Verifica_Lista_Vazia){
+        if (Verifica_Lista_Vazia(&mesa -> Tableau[tableau_saida-1])){
             Carta* carta_vazia = (Carta*)malloc(sizeof(Carta));
             Inicializa_Carta(carta_vazia, 0, 'V');
             Adicionar_Carta_ao_Topo(&(mesa->Tableau[tableau_saida - 1]), (carta_vazia)); //Adiciona a carta nula

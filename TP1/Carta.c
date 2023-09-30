@@ -41,36 +41,40 @@ int Verifica_Sequencia_Naipe(Carta* carta1, Carta* carta2){ // Verifica se as ca
 }
 
 int Verifica_Sequencia_Alternada(Carta* carta1, Carta* carta2){ //TABLEAU
+    //Carta1 = Carta_saida carta2 = carta_chegada
     if((carta1 -> valor == 0) && (carta2 -> valor == 13)){ //Verifica se a primeira carta é 0, se for, o Rei pode ser colocado naquele espaço do tableau
         return True;
     }
 
     if((carta1 -> valor) == (carta2 -> valor + 1)){ //Verifica se a carta 1 é exatamente uma unidade maior que a segunda
-         if (((carta1 -> naipe == 'C'|| carta2 -> naipe == 'O') && (carta2 -> naipe == 'E'|| carta2 -> naipe == 'P')) || ((carta1 -> naipe == 'E'|| carta2 -> naipe == 'P' ) && (carta2 -> naipe == 'C'|| carta2 -> naipe =='O')) ) {// Verifica se o naipe pode ser sobreposto pelo outro naipe (Cores)
+        //if (((carta1 -> naipe == 'C'|| carta1 -> naipe == 'O') && (carta2 -> naipe == 'E'|| carta2 -> naipe == 'P')) || ((carta1 -> naipe == 'E'|| carta2 -> naipe == 'P' ) && (carta2 -> naipe == 'C'|| carta2 -> naipe =='O')) ) {// Verifica se o naipe pode ser sobreposto pelo outro naipe (Cores)
+        if((carta1 -> naipe == 'C'|| carta1 -> naipe == 'O') && (carta2 -> naipe == 'E'|| carta2 -> naipe == 'P')){
             return True;
-         }
+        }
+        if((carta2 -> naipe == 'C'|| carta2 -> naipe == 'O') && (carta1 -> naipe == 'E'|| carta1 -> naipe == 'P')){
+            return True;
+        }
     }
     return False;
 }
 
 void Exibir_Carta(Carta* carta){
-    char naipes[Qtd_Naipes] = {'♣️', '♠️' , '♥️', '♦'};
     if (carta -> valor == 0){
         printf("[    ]"); //Lista vazia
     }else if (carta -> posicao == True){
         printf("[%d  ", carta->valor);  
         switch (carta->naipe){
             case 'P':
-                printf("%c]", naipes[0]); 
+                printf("♣️]"); 
                 break;
             case 'E':
-                printf("%c]", naipes[1]); 
+                printf("♠️]"); 
                 break;
             case 'C':
-                printf("%c]", naipes[2]); 
+                printf("♥️]"); 
                 break;
             case 'O':
-                printf("%c]", naipes[3]); 
+                printf("♦]"); 
                 break;   
         }  
     } else {
@@ -79,4 +83,4 @@ void Exibir_Carta(Carta* carta){
 }
 
 
-//♣️ ♠️ ♥️ ♦
+//   
