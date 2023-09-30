@@ -237,13 +237,13 @@ void Exibir_Mesa(Mesa* mesa){
     }
     
     printf("\n");
-    printf("TABLEAU:\n");
+    printf("\nTABLEAU:\n");
     for(int i=0; i < Qtd_Tableau ; i++){
         printf("%d) ", i+1);
         Exibir_Lista_Cartas(&(mesa -> Tableau[i]), 'l');
         printf("\n");
     }
-    printf("BARALHO | DESCARTE\n");
+    printf("\nBARALHO |  DESCARTE\n");
     Exibir_Lista_Cartas(&(mesa-> Baralho), 't');
     printf("    ");
     Exibir_Lista_Cartas(&(mesa-> Descarte), 't');

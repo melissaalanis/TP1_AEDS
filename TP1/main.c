@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> 
+#include <unistd.h> // Biblioteca pra definir tempo de espera na execuçao do terminal.
 #include "Mesa.h"
 
 /*
@@ -27,6 +28,8 @@ int main() {
     printf("\nMENU:\n1) Modo Interativo\n2) Utilizando Arquivo\n");
     printf("\nCom base nos numeros do menu acima escolha o formato do jogo:\n");
     scanf("%d", &formato_jogo);
+    sleep(1);
+    system("clear");
     
     if(formato_jogo == 1){
         int jogada;
@@ -38,7 +41,7 @@ int main() {
 
         while(continua_jogo == True){
             Exibir_Mesa(&mesa);
-            printf("\nJOGADAS POSSÍVEIS\n1) Comprar Carta (CC)\n2) Mover do Descarte para as bases (DB)\n3) Mover do descarte para o tableau (DT)\n4) Mover do tableau para as bases (TB)\n5) Mover das bases para o tableau (BT)\n6) Mover entre colunas do Tableau (TT)\n7) Sair\nDigite o numero de acordo com a operacao desejada: ");
+            printf("\n\n\tJOGADAS POSSÍVEIS\n1) Comprar Carta (CC)\n2) Mover do Descarte para as bases (DB)\n3) Mover do descarte para o tableau (DT)\n4) Mover do tableau para as bases (TB)\n5) Mover das bases para o tableau (BT)\n6) Mover entre colunas do Tableau (TT)\n7) Sair\nDigite o numero de acordo com a operacao desejada: ");
             scanf("%d", &jogada);
 
             switch (jogada){
@@ -75,16 +78,19 @@ int main() {
                 Mover_no_Tableau(&mesa, qtd, num_tableau_chegada, num_tableau_saida);
                 break;
             case 7:
+                sleep(1);
                 system("clear");
-                printf("Jogo finalizado! :(\n");
+                printf("Não nos deixe, %s!!\n", nome_jogador);
                 continua_jogo = False;
                 break;
             default:
                 printf("Opção inválida! Tente novamente!\n");
                 break;
             }
+            sleep(1);
+            system("clear");
         }
-        system("clear");
+        
         if(Verificar_Vitoria(&mesa)){
             printf("Parabens, %s! Voce venceu ;)", nome_jogador);
         }
