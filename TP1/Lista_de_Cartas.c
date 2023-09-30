@@ -17,9 +17,9 @@ int Verifica_Lista_Vazia(Lista_de_Cartas* lista_de_cartas){ // A função Lista 
 
 
 int Retornar_Tamanho_Lista(Lista_de_Cartas* lista_de_cartas){
-    int tamanho; // Comeca com 1 porque ele nao vai somar a ultima celula;
-    if (Verifica_Lista_Vazia){
-        tamanho=0;
+    int tamanho=0; 
+    if (Verifica_Lista_Vazia(lista_de_cartas)){
+        return 0;
     }
     Celula* auxiliar = lista_de_cartas -> primeiro -> prox; //
     while ( auxiliar != NULL) {
@@ -66,12 +66,14 @@ Carta* Retorna_Carta_Posicao(Lista_de_Cartas* lista_de_cartas, int posicaoCarta)
 
 }
 
+
 void Adicionar_Carta_ao_Topo(Lista_de_Cartas* lista_de_cartas, Carta* carta){ //Testar função
     lista_de_cartas -> ultimo -> prox = (Celula*)malloc(sizeof(Celula)); //Ligando minha nova celula a anterior a ela (antiga ultima)
     lista_de_cartas -> ultimo = lista_de_cartas -> ultimo -> prox; //Atualizando o meu ultimo para a nova celula alocada
     lista_de_cartas -> ultimo -> carta = *carta; //Passando o conteudo (carta) da minha nova celula
     lista_de_cartas -> ultimo -> prox = NULL; //Como o prox do ultimo não aponta para nada, passamos NULL
 }
+
 
 int Retirar_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){ 
     if (Verifica_Lista_Vazia(lista_de_cartas)){  //Não é possível retirar carta de uma lista vazia
@@ -97,7 +99,7 @@ void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lis
     int tamanho = Retornar_Tamanho_Lista(lista_de_cartas);
     int novo_tamanho = tamanho - quantidadeCarta;    // Analisa a quantidade de celulas que serao percorridas
 
-    Carta* carta_aux = Retorna_Carta_Posicao(lista_de_cartas, quantidadeCarta-1);
+    //Carta* carta_aux = Retorna_Carta_Posicao(lista_de_cartas, quantidadeCarta-1);
     Celula* auxiliar = lista_de_cartas -> primeiro -> prox; // Comeca na primeira celula com conteudo
     Celula* auxiliar2 = lista_de_cartas -> primeiro; //Comeca da celula cabeça
 
@@ -147,7 +149,7 @@ void Embaralhar_Baralho(Lista_de_Cartas* lista_de_cartas){
 
 void Exibir_Lista_Cartas(Lista_de_Cartas *lista_de_cartas, char tipo_exibicao){ // RODAR FUNCAO DPS
     if (Verifica_Lista_Vazia(lista_de_cartas)){
-        printf("[    ]");
+        printf("[     ]");
     }
     else if(tipo_exibicao == 't'){
             Carta carta_aux = lista_de_cartas -> ultimo -> carta;
