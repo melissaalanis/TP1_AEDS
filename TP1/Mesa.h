@@ -3,6 +3,7 @@
 #define Qtd_Bases 4
 #define Qtd_Tableau 7
 #define Tam_Baralho 52
+#define total_cartas_tableau 28
 
 typedef struct {
     Lista_de_Cartas Baralho;
@@ -24,3 +25,4 @@ void Mover_Tableau_Base(Mesa* mesa, int tableau);
 void Mover_no_Tableau(Mesa* mesa, int qtd, int tableau_chegada, int tableau_saida);
 void Mover_Bases_Tableau(Mesa * mesa, int base, int tableau);
 void Exibir_Mesa(Mesa* mesa);
+void Preparar_Tableau_Arquivo(Mesa* mesa);

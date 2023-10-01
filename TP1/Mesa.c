@@ -35,10 +35,8 @@ void Carregar_Baralho_Aleatorio(Mesa* mesa){
         valor = (i % 13) + 1; // Como o i%13 vai  gerar numeros de 0 a 12, por isso utilizei o "+1"
         naipe = naipes[i % Qtd_Naipes];
         Inicializa_Carta(carta_aux, valor, naipe);
-        //Exibir_Carta(carta_aux);
         Adicionar_Carta_ao_Topo(&(mesa -> Baralho), carta_aux);
     }
-    //Exibir_Lista_Cartas(&(mesa -> Baralho), 'l');
     Embaralhar_Baralho(&(mesa -> Baralho)); //Embaralha meu baralho
 }
 
@@ -49,7 +47,8 @@ void Comprar_Carta(Mesa* mesa){
        
    // Carta* auxiliar_Descarte = Retorna_Carta_do_Topo (&(mesa -> Descarte));
 
-    if (tamanho_Baralho == 0){ // Verifica se o tamanho do Baralho é 0, se for, iremos passar todas as cartas do descarte para o barallho, virando-as para 0
+    if (tamanho_Baralho == 0){ // Verifica se o tamanho do Baralho é 0, se for, 
+    //iremos passar todas as cartas do descarte para o barallho, virando-as para 0
         Carta* auxiliar = Retorna_Carta_do_Topo (&(mesa -> Baralho));
         mesa -> pontuacao -= 50;
         if (mesa -> pontuacao < 0){
@@ -57,16 +56,17 @@ void Comprar_Carta(Mesa* mesa){
         }
     
         for (int i=0; i<tamanho_Descarte; i++){ 
-            Transferir_Carta(&(mesa -> Descarte), 1 ,(&mesa -> Baralho)); // Tranferi carta por carta do descarte para o Baralho
+            Transferir_Carta(&(mesa -> Descarte), 1 ,(&mesa -> Baralho)); 
+            // Transferi carta por carta do descarte para o Baralho
             auxiliar = Retorna_Carta_do_Topo (&(mesa -> Baralho));  
-            Altera_Posicao_Carta(auxiliar); // Enquanto vamos transferindo, vamos virando ela para 0 (Ja que todas as cartas que estavam no Descarte estavam na posicao 1);
+            Altera_Posicao_Carta(auxiliar); // Enquanto vamos transferindo, vamos virando ela para 0 
+            //(Ja que todas as cartas que estavam no Descarte estavam na posicao 1);
         }
     } else {
         Transferir_Carta(&(mesa -> Baralho), 1 , &(mesa -> Descarte)); 
         Carta* auxiliar_Descarte = Retorna_Carta_do_Topo (&(mesa -> Descarte)); 
         Altera_Posicao_Carta(auxiliar_Descarte);
     }
-    
 }
 
 
@@ -171,22 +171,23 @@ void Mover_Tableau_Base(Mesa* mesa, int tableau){
 }   
 
 void Mover_no_Tableau(Mesa* mesa, int qtd, int tableau_chegada, int tableau_saida){
-    Carta* carta_aux_saida = Retorna_Carta_Posicao(&(mesa->Tableau[tableau_saida - 1]), qtd-1); //Pegando a carta referência do bloco de saída
-    //(a carta que irá definir se o movimento é válido)
+    Carta* carta_aux_saida = Retorna_Carta_Posicao(&(mesa->Tableau[tableau_saida - 1]), qtd-1); 
+    //Pegando a carta referencia do bloco de saída
+    //(a carta que ira definir se o movimento eh valido)
     if(Retorna_Posicao_Carta(carta_aux_saida) == True){
-        Carta* carta_aux_chegada = Retorna_Carta_do_Topo(&(mesa->Tableau[tableau_chegada- 1])); //Pegando a primeira carta do tableu que receberá o novo bloco
-        //Exibir_Carta(carta_aux_chegada);
-        //(usamos tableu-1 porque recebemos um valor de 1 a Qtd_Tableau, mas o valor é de 0 a 6)
+        Carta* carta_aux_chegada = Retorna_Carta_do_Topo(&(mesa->Tableau[tableau_chegada- 1])); 
+        //Pegando a primeira carta do tableu que recebera o novo bloco
+        //(usamos tableu-1 porque recebemos um valor de 1 a Qtd_Tableau, mas o valor eh de 0 a 6)
         
-        if (Verifica_Sequencia_Alternada(carta_aux_chegada, carta_aux_saida)){ //Verifica se o movimento é válido
+        if (Verifica_Sequencia_Alternada(carta_aux_chegada, carta_aux_saida)){ //Verifica se o movimento eh valido
             if(Retorna_Valor_Carta(carta_aux_chegada) == 0){
                 Retirar_Carta_do_Topo(&(mesa->Tableau[tableau_chegada - 1]));
             }
 
             Transferir_Carta(&(mesa->Tableau[tableau_saida - 1]), qtd, &(mesa->Tableau[tableau_chegada - 1]));
             
-            //Como foi movido n cartas, o meu topo muda e será necessário alterar minha nova carta do topo 
-            //(revelar a carta do Tableau, se minha lista não for vazia, se for adicionar minha carta nula a minha lista)  
+            //Como foi movido n cartas, o meu topo muda e sera necessario alterar minha nova carta do topo 
+            //(revelar a carta do Tableau, se minha lista nao for vazia, se for adicionar minha carta nula a minha lista)  
             
             if (Verifica_Lista_Vazia(&(mesa->Tableau[tableau_saida - 1]))){
                 Carta* carta_vazia = (Carta*)malloc(sizeof(Carta));
@@ -231,45 +232,56 @@ void Mover_Bases_Tableau(Mesa * mesa, int base, int tableau){ // Move uma carta 
 
 void Exibir_Mesa(Mesa* mesa){
     printf("PONTUACAO: %d\n", mesa -> pontuacao);
+    
     printf("\nBASES:\n");
     for(int j=0; j < Qtd_Bases ; j++){
-        Exibir_Lista_Cartas(&(mesa -> Base[j]), 't');
+        Exibir_Lista_Cartas(&(mesa -> Base[j]), 't'); //Exibe apenas o topo das bases
     }
     
     printf("\n");
     printf("\nTABLEAU:\n");
     for(int i=0; i < Qtd_Tableau ; i++){
         printf("%d) ", i+1);
-        Exibir_Lista_Cartas(&(mesa -> Tableau[i]), 'l');
+        Exibir_Lista_Cartas(&(mesa -> Tableau[i]), 'l'); //Exibe o tableau inteiro
         printf("\n");
     }
-    printf("\nBARALHO |  DESCARTE\n");
-    Exibir_Lista_Cartas(&(mesa-> Baralho), 't');
-    printf("    ");
-    Exibir_Lista_Cartas(&(mesa-> Descarte), 't');
+
+    printf("\nBARALHO | DESCARTE\n");
+    Exibir_Lista_Cartas(&(mesa-> Baralho), 't'); //Exibe apenas o topo do Baralho 
+    printf("   ");
+    Exibir_Lista_Cartas(&(mesa-> Descarte), 't'); //Exibe apenas o topo do Descarte
 }
-void Inicializar_Baralho_Arquivo(Mesa *mesa, FILE *arq){
-    int tamanho_total, tamanho_baralho;
+void Inicializar_Baralho_Arquivo(Mesa *mesa, FILE *arq){ //Recebo um ponteiro para o arquivo que foi informado no main
+    int tamanho_total;
+    
     int valor;
     char naipe;
-    //char linha[100];
-    
-    //arq = fopen("arquivo.txt", "r"); // Abre o arquivo para leitura
 
-    if (arq == NULL) {
-        printf("Erro ao abrir o arquivo.\n");
-    }
+    fscanf(arq, "%d\n", &tamanho_total);//Pego o tamanho do meu baralho
 
-    fscanf(arq, "%d\n", &tamanho_total);
-
-    tamanho_baralho = tamanho_total-28;
-    
     for (int i = 0; i < tamanho_total; i++){
-        fscanf(arq, "(%d %c) ", &valor, &naipe);
+        fscanf(arq, "(%d %c) ", &valor, &naipe);//Lendo o valor e naipe das cartas que estão no arquivo
         Carta* carta_aux = (Carta*)malloc(sizeof(Carta));
         Inicializa_Carta(carta_aux, valor, naipe);
         Adicionar_Carta_ao_Topo(&(mesa->Baralho), carta_aux);
     }
-    Exibir_Lista_Cartas(&(mesa->Baralho), 'l');
-    //fclose(arq); // Fecha o arquivo
+
+}
+
+
+//Como escolhemos trabalhar com o topo sendo o final da lista, mas o arquivo seguia uma abordagem difente, foi necessário
+//Alterar o tableau, invertendo cada base dele
+void Preparar_Tableau_Arquivo(Mesa* mesa){ 
+    Lista_de_Cartas lista_aux;
+    for (int i = 0; i < Qtd_Tableau; i++){
+        Inicializar_Lista_Vazia(&lista_aux);
+        Transferir_Carta(&(mesa->Baralho), i + 1, &lista_aux);
+
+        for (int j = 0; j < i+1; j++){
+            Transferir_Carta(&lista_aux, 1, &(mesa->Tableau[i]));
+        }
+
+        Carta* carta_topo = Retorna_Carta_do_Topo(&(mesa->Tableau[i]));
+        Altera_Posicao_Carta(carta_topo);
+    }
 }

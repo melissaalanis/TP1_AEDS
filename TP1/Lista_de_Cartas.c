@@ -18,13 +18,13 @@ int Verifica_Lista_Vazia(Lista_de_Cartas* lista_de_cartas){ // A função Lista 
 
 int Retornar_Tamanho_Lista(Lista_de_Cartas* lista_de_cartas){
     int tamanho=0; 
-    if (Verifica_Lista_Vazia(lista_de_cartas)){
+    if (Verifica_Lista_Vazia(lista_de_cartas)){ // Verifica se a lista é vazia, se for, a variavel tamanho recebe 0;
         return 0;
     }
-    Celula* auxiliar = lista_de_cartas -> primeiro -> prox; //
+    Celula* auxiliar = lista_de_cartas -> primeiro -> prox;
     while ( auxiliar != NULL) {
-        tamanho += 1;
-        auxiliar = auxiliar -> prox;
+        tamanho += 1;   // Somamos um ao tamanho
+        auxiliar = auxiliar -> prox; // Avançamos para a próxima celula da lista;
     }
     return tamanho;
 }
@@ -40,7 +40,7 @@ Carta* Retorna_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
 
 Carta* Retorna_Carta_Posicao(Lista_de_Cartas* lista_de_cartas, int posicaoCarta){
     // Posição 0 (Carta do Topo): Ultima carta
-    // Posição n (Carta do fundo): Primeira carta (Não é n-1 porque nao contamos a celula cabeça no tamanho da lista.)
+    // Posição n (Carta do fundo): Primeira carta (Não é n-1 porque nao contamos a celula cabeça no tamanho da lista).
     if (posicaoCarta==Retornar_Tamanho_Lista(lista_de_cartas)) {
         return &(lista_de_cartas -> primeiro -> prox -> carta);
     }
@@ -63,7 +63,6 @@ Carta* Retorna_Carta_Posicao(Lista_de_Cartas* lista_de_cartas, int posicaoCarta)
 
     return &(aux -> carta);       
 }
-
 }
 
 
@@ -87,29 +86,29 @@ int Retirar_Carta_do_Topo(Lista_de_Cartas* lista_de_cartas){
     } 
     free(celula_aux -> prox); //libera o espaço da memória do meu antigo ultimo item 
     celula_aux -> prox = NULL; //o campo prox da minha nova ultima celula é NULL
-    lista_de_cartas -> ultimo  = celula_aux; //passa minha nova ultima celula para o meu ponteiro
+    lista_de_cartas -> ultimo  = celula_aux; // o campo ultimo aponta para a nova ultima celula (anterior à celula retirada);
     return 1;
 }
 
 void Transferir_Carta(Lista_de_Cartas* lista_de_cartas, int quantidadeCarta, Lista_de_Cartas* lista_de_cartas_receptora){
-    if (Retornar_Tamanho_Lista(lista_de_cartas) < quantidadeCarta || quantidadeCarta <= 0){ // Verifica se a lista doadora possui cartas suficientes a serem retiradas
-        printf("Operacao invalida! Verifique a quantidade de cartas e o tamanho da lista, depois tente novamente ;)");
+    if (Retornar_Tamanho_Lista(lista_de_cartas) < quantidadeCarta || quantidadeCarta <= 0){ 
+        // Verifica se a lista doadora possui cartas suficientes a serem retiradas
+        printf("Operacao invalida! Verifique a quantidade de cartas e o tamanho da lista, depois tente novamente");
     }
     
     int tamanho = Retornar_Tamanho_Lista(lista_de_cartas);
     int novo_tamanho = tamanho - quantidadeCarta;    // Analisa a quantidade de celulas que serao percorridas
 
-    //Carta* carta_aux = Retorna_Carta_Posicao(lista_de_cartas, quantidadeCarta-1);
     Celula* auxiliar = lista_de_cartas -> primeiro -> prox; // Comeca na primeira celula com conteudo
     Celula* auxiliar2 = lista_de_cartas -> primeiro; //Comeca da celula cabeça
 
     for( int i=0;i<novo_tamanho; i++){
         auxiliar2 = auxiliar2 -> prox; // Recebe o endereco de memoria da celula que se tornará a ultima
-        auxiliar = auxiliar -> prox; // Recebe o endereco de memoria da celula que ira se tornar a primeira quando houver o rompimento}
+        auxiliar = auxiliar -> prox; // Recebe o endereco de memoria da celula que ira se tornar a primeira do bloco rompido}
     }
     
-    
-    lista_de_cartas_receptora -> ultimo -> prox = auxiliar; // A antiga ultima posiçao da lista receptora passa a apontar para as celula transplantada
+    lista_de_cartas_receptora -> ultimo -> prox = auxiliar; 
+    //A antiga ultima posiçao da lista receptora vai apontar para as celula transplantada
     lista_de_cartas_receptora -> ultimo = lista_de_cartas -> ultimo;
     lista_de_cartas -> ultimo = auxiliar2; // A ultima celula é redefinida para a ultima celula que ficou apos a retirada
     lista_de_cartas -> ultimo -> prox = NULL; // Definindo que a lista de cartas tenha um final ( já que o seu ultimo foi retirado)
