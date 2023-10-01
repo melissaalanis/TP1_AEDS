@@ -114,12 +114,11 @@ int main() {
             printf("Erro ao abrir o arquivo.\n");
             return 1;
         }
-        
+        system("clear");
         //Preparando meu jogo
         Inicializar_Baralho_Arquivo(&mesa, arq);
         Preparar_Tableau_Arquivo(&mesa);
         Exibir_Mesa(&mesa);
-
         char jogada[3];
         
         while (continua_jogo == True){ //Entra no looping
@@ -152,26 +151,21 @@ int main() {
             else if (strcmp(jogada, "X" )== 0){ 
                 continua_jogo = False; //Atualiza minha variável para sair do looping
             }
-
-           
-
-            int c;
-            scanf("%d", &c);
-            Exibir_Mesa(&mesa);
             if(continua_jogo == False){ //Verifica se meu arquivo já terminou
                 break;
             }
             
         }
-
-        //system("Clear"); //Limpo meu terminal para mostrar o resultado final da minha mesa
+        sleep(4);
+        system("clear"); //Limpo meu terminal para mostrar o resultado final da minha mesa
+        printf("\nRESULTADO FINAL:\n");
         Exibir_Mesa(&mesa);
 
         //Verifico se a condição de vitória foi atingida
         if(Verificar_Vitoria(&mesa)){
-            printf("Parabens, %s! Voce venceu ;)", nome_jogador);
+            printf("\nParabens, %s! Voce venceu ;)", nome_jogador);
         } else {
-            printf("Não foi dessa vez! :( Tente novamente!");
+            printf("\nNão foi dessa vez! :( Tente novamente!");
         }
         
     

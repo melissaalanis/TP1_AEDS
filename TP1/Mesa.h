@@ -3,7 +3,6 @@
 #define Qtd_Bases 4
 #define Qtd_Tableau 7
 #define Tam_Baralho 52
-#define total_cartas_tableau 28
 
 typedef struct {
     Lista_de_Cartas Baralho;

@@ -251,7 +251,8 @@ void Exibir_Mesa(Mesa* mesa){
     printf("   ");
     Exibir_Lista_Cartas(&(mesa-> Descarte), 't'); //Exibe apenas o topo do Descarte
 }
-void Inicializar_Baralho_Arquivo(Mesa *mesa, FILE *arq){ //Recebo um ponteiro para o arquivo que foi informado no main
+void Inicializar_Baralho_Arquivo(Mesa *mesa, FILE *arq){ 
+    //Recebo um ponteiro para o arquivo que foi informado no main
     int tamanho_total;
     
     int valor;
@@ -269,8 +270,9 @@ void Inicializar_Baralho_Arquivo(Mesa *mesa, FILE *arq){ //Recebo um ponteiro pa
 }
 
 
-//Como escolhemos trabalhar com o topo sendo o final da lista, mas o arquivo seguia uma abordagem difente, foi necessário
-//Alterar o tableau, invertendo cada base dele
+//Como escolhemos trabalhar com o topo sendo o final da lista, 
+//mas o arquivo seguia uma abordagem difente, foi necessário
+//alterar o tableau, invertendo cada base dele
 void Preparar_Tableau_Arquivo(Mesa* mesa){ 
     Lista_de_Cartas lista_aux;
     for (int i = 0; i < Qtd_Tableau; i++){

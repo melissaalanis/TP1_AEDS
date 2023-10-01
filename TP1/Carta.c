@@ -65,16 +65,33 @@ int Verifica_Sequencia_Alternada(Carta* carta1, Carta* carta2){
 }
 
 void Exibir_Carta(Carta* carta){
-    //char naipes[Qtd_Naipes] = {'♣️', '♠️' , '♥️', '♦'};
     if (carta -> valor == 0){
         printf("[     ]"); //Lista vazia
     }else if (carta -> posicao == True){
-        printf("[%d  %c] ", carta->valor, carta->naipe);  
+        if(carta->valor == 13){
+            printf("[K ");
+        } else if(carta->valor == 12){
+            printf("[Q ");
+        } else if(carta->valor == 11){
+            printf("[J ");
+        } else if(carta->valor == 1){
+            printf("[A ");
+        } else {
+            printf("[%d ", carta->valor);
+        }
+        if(carta->naipe == 'C'){
+            printf(" ♥️] ");
+        } else if(carta->naipe == 'O'){
+            printf(" ♦] ");
+        } else if(carta->naipe == 'P'){
+            printf(" ♣️] ");
+        } else if(carta->naipe == 'E'){
+            printf(" ♠️] ");
+        } 
     } else {
-        printf("[%d  %c] ", carta->valor, carta->naipe);  
-        //printf("[ -- ]");
+        printf("[ -- ]");
     }
 }
 
 
-//♣️ ♠️ ♥️ ♦
+//♣️  ♥️ ♦
